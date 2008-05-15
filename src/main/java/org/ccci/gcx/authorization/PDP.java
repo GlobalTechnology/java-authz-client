@@ -10,7 +10,7 @@ import javax.xml.xpath.*;
 import org.w3c.dom.*;
 
 /**
- * @author frett
+ * @author Daniel Frett
  *
  */
 public class PDP {
@@ -18,12 +18,14 @@ public class PDP {
 	private HttpClient client;
 	private DocumentBuilder XMLParser;
 	private XPath xpathEngine;
+	private String gcxServerRoot;
 
 	/**
 	 * 
 	 */
 	public PDP() {
 		this.client = new HttpClient();
+		this.gcxServerRoot = "http://dev.mygcx.org";
 		try {
 			//create the XML parser
 			DocumentBuilderFactory XMLParserFactory = DocumentBuilderFactory.newInstance();
@@ -47,7 +49,7 @@ public class PDP {
 
 		//generate POST request
 		String requestXML = "<?xml version='1.0' encoding='UTF-8'?><auth_question><entity name='" + entity + "'><target name='" + target + "'/></entity></auth_question>";
-		PostMethod request = new PostMethod("http://dev.mygcx.org/authz");
+		PostMethod request = new PostMethod(this.gcxServerRoot + "/authz");
 		request.addParameter("auth_question", requestXML);
 
 		//try executing the request and parsing the response
@@ -84,6 +86,27 @@ public class PDP {
 			return false;
 		}
 		// default to false
+		return false;
+	}
+
+	public boolean confluenceCheck(String entity, String spaceKey, String permissionType) {
+
+		//generate POST request
+		PostMethod request = new PostMethod(this.gcxServerRoot + "/authz-confluence");
+		request.addParameter("entity", entity);
+		request.addParameter("spaceKey", spaceKey);
+		request.addParameter("permissionType", permissionType);
+
+		//try executing the request and parsing the response
+		try {
+			//execute the request
+			this.client.executeMethod(request);
+			
+			//test response to see if it was yes or no
+			return request.getResponseBodyAsString().equalsIgnoreCase("yes");
+		}
+		catch(Exception e) {
+		}
 		return false;
 	}
 }

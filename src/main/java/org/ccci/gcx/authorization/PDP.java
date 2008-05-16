@@ -3,11 +3,16 @@
  */
 package org.ccci.gcx.authorization;
 
-import org.apache.commons.httpclient.*;
-import org.apache.commons.httpclient.methods.*;
-import javax.xml.parsers.*;
-import javax.xml.xpath.*;
-import org.w3c.dom.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
 /**
  * @author Daniel Frett
@@ -25,7 +30,7 @@ public class PDP {
 	 */
 	public PDP() {
 		this.client = new HttpClient();
-		this.gcxServerRoot = "http://dev.mygcx.org";
+		this.gcxServerRoot = "https://www.mygcx.org";
 		try {
 			//create the XML parser
 			DocumentBuilderFactory XMLParserFactory = DocumentBuilderFactory.newInstance();
@@ -108,5 +113,9 @@ public class PDP {
 		catch(Exception e) {
 		}
 		return false;
+	}
+
+	public void setGcxServerRoot(String gcxServerRoot) {
+		this.gcxServerRoot = gcxServerRoot;
 	}
 }

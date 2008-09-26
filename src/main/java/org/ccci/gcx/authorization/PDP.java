@@ -54,7 +54,7 @@ public class PDP {
 
 		//generate POST request
 		String requestXML = "<?xml version='1.0' encoding='UTF-8'?><auth_question><entity name='" + entity + "'><target name='" + target + "'/></entity></auth_question>";
-		PostMethod request = new PostMethod(this.gcxServerRoot + "/authz");
+		PostMethod request = new PostMethod(this.gcxServerRoot + "/system/authz");
 		request.addParameter("auth_question", requestXML);
 
 		//try executing the request and parsing the response
@@ -97,7 +97,7 @@ public class PDP {
 	public boolean confluenceCheck(String entity, String spaceKey, String permissionType) {
 
 		//generate POST request
-		PostMethod request = new PostMethod(this.gcxServerRoot + "/authz-confluence");
+		PostMethod request = new PostMethod(this.gcxServerRoot + "/system/authz-confluence");
 		request.addParameter("entity", entity);
 		request.addParameter("spaceKey", spaceKey);
 		request.addParameter("permissionType", permissionType);

@@ -87,7 +87,9 @@ public class PDP {
 			}
 		}
 		//we had an error while trying to execute the request, assume not authorized
-		catch (Exception e) {
+		catch(Exception e) {
+			//output error encountered to the standard error stream before returning not authorized
+			e.printStackTrace(System.err);
 			return false;
 		}
 		// default to false
@@ -110,9 +112,12 @@ public class PDP {
 			//test response to see if it was yes or no
 			return request.getResponseBodyAsString().equalsIgnoreCase("yes");
 		}
+		//an error was encountered, so assume not authorized
 		catch(Exception e) {
+			//output error encountered to the standard error stream before returning not authorized
+			e.printStackTrace(System.err);
+			return false;
 		}
-		return false;
 	}
 
 	public void setGcxServerRoot(String gcxServerRoot) {

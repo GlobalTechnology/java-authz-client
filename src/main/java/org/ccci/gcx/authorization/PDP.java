@@ -3,14 +3,22 @@
  */
 package org.ccci.gcx.authorization;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
@@ -20,7 +28,7 @@ import org.w3c.dom.NodeList;
  */
 public class PDP {
 
-	private HttpClient client;
+	private DefaultHttpClient client;
 	private DocumentBuilder XMLParser;
 	private XPath xpathEngine;
 	private String gcxServerRoot;
@@ -29,7 +37,7 @@ public class PDP {
 	 * 
 	 */
 	public PDP() {
-		this.client = new HttpClient();
+		this.client = new DefaultHttpClient();
 		this.gcxServerRoot = "https://www.mygcx.org";
 		try {
 			//create the XML parser
@@ -51,19 +59,22 @@ public class PDP {
 	 * @return boolean indicating whether entity has access to target, defaults to false if an error is encountered
 	 */
 	public boolean check(String entity, String target) {
-
-		//generate POST request
+		//generate the authorization check params
 		String requestXML = "<?xml version='1.0' encoding='UTF-8'?><auth_question><entity name='" + entity + "'><target name='" + target + "'/></entity></auth_question>";
-		PostMethod request = new PostMethod(this.gcxServerRoot + "/system/authz");
-		request.addParameter("auth_question", requestXML);
+		List <NameValuePair> params = new ArrayList <NameValuePair>();
+        params.add(new BasicNameValuePair("auth_question", requestXML));
 
 		//try executing the request and parsing the response
 		try {
+			//generate POST request
+			HttpPost request = new HttpPost(this.gcxServerRoot + "/system/authz");
+	        request.setEntity(new UrlEncodedFormEntity(params));
+			
 			//execute the request
-			this.client.executeMethod(request);
+			HttpResponse response = this.client.execute(request);
 
 			//parse the XML response to a Document object
-			Document responseDOM = this.XMLParser.parse(request.getResponseBodyAsStream());
+			Document responseDOM = this.XMLParser.parse(response.getEntity().getContent());
 
 			//locate all entity nodes
 			NodeList entities = (NodeList) this.xpathEngine.evaluate("/auth_answer/entity", responseDOM.getDocumentElement(), XPathConstants.NODESET);
@@ -97,20 +108,23 @@ public class PDP {
 	}
 
 	public boolean confluenceCheck(String entity, String spaceKey, String permissionType) {
-
-		//generate POST request
-		PostMethod request = new PostMethod(this.gcxServerRoot + "/system/authz-confluence");
-		request.addParameter("entity", entity);
-		request.addParameter("spaceKey", spaceKey);
-		request.addParameter("permissionType", permissionType);
+		//generate the authorization check params
+		List <NameValuePair> params = new ArrayList <NameValuePair>();
+        params.add(new BasicNameValuePair("entity", entity));
+        params.add(new BasicNameValuePair("spaceKey", spaceKey));
+        params.add(new BasicNameValuePair("permissionType", permissionType));
 
 		//try executing the request and parsing the response
 		try {
+			//generate POST request
+			HttpPost request = new HttpPost(this.gcxServerRoot + "/system/authz-confluence");
+	        request.setEntity(new UrlEncodedFormEntity(params));
+
 			//execute the request
-			this.client.executeMethod(request);
+			String response = this.client.execute(request, new BasicResponseHandler());
 			
 			//test response to see if it was yes or no
-			return request.getResponseBodyAsString().equalsIgnoreCase("yes");
+			return response.equalsIgnoreCase("yes");
 		}
 		//an error was encountered, so assume not authorized
 		catch(Exception e) {

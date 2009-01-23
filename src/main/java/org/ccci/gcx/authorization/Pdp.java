@@ -28,7 +28,7 @@ import org.w3c.dom.NodeList;
  * @author Daniel Frett
  *
  */
-public class PDP {
+public class Pdp {
 
 	private DefaultHttpClient client;
 	private DocumentBuilder XMLParser;
@@ -38,7 +38,7 @@ public class PDP {
 	/**
 	 * 
 	 */
-	public PDP() {
+	public Pdp() {
 		this.client = new DefaultHttpClient();
 		this.gcxServerRoot = "https://www.mygcx.org";
 		try {

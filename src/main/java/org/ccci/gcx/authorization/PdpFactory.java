@@ -18,8 +18,7 @@ public class PdpFactory {
 		//PDP doesn't exist yet, create it
 		if(pdp == null) {
 			//create PDP object
-			pdp = new Pdp();
-			pdp.setGcxServerRoot(uri);
+			pdp = new Pdp(uri);
 			
 			//store PDP in pdps Map
 			pdps.put(uri, pdp);

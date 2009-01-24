@@ -29,18 +29,24 @@ import org.w3c.dom.NodeList;
  *
  */
 public class Pdp {
-
 	private DefaultHttpClient client;
+	private String gcxServerRoot;
 	private DocumentBuilder XMLParser;
 	private XPath xpathEngine;
-	private String gcxServerRoot;
 
 	/**
 	 * 
 	 */
 	public Pdp() {
+		this("https://www.mygcx.org");
+	}
+
+	/**
+	 * @param gcxServerRoot
+	 */
+	public Pdp(String gcxServerRoot) {
+		super();
 		this.client = new DefaultHttpClient();
-		this.gcxServerRoot = "https://www.mygcx.org";
 		try {
 			//create the XML parser
 			DocumentBuilderFactory XMLParserFactory = DocumentBuilderFactory.newInstance();
@@ -53,23 +59,10 @@ public class Pdp {
 		}
 		catch(Exception e) {
 		}
+
+		this.setGcxServerRoot(gcxServerRoot);
 	}
 
-	/**
-	 * @param entity authorization entity to check authorization for
-	 * @param target authorization target to check authorization for
-	 * @return boolean indicating whether entity has access to target, defaults to false if an error is encountered
-	 */
-	public boolean check(String entity, String target) {
-		//create list to hold the 1 target being checked
-		ArrayList<String> targets = new ArrayList<String>(1);
-		targets.add(target);
-		
-		//process check and return results
-		return check(entity, targets).get(0).booleanValue();
-	}
-
-	
 	/**
 	 * @param entity the entity that authorization is being checked for
 	 * @param targets a list of targets to check authorization for 
@@ -80,7 +73,7 @@ public class Pdp {
 		if(targets.isEmpty()) {
 			return new ArrayList<Boolean>();
 		}
-		
+
 		//generate the request xml
 		String requestXML = "<?xml version='1.0' encoding='UTF-8'?><auth_question><entity name='" + entity + "'>";
 		//iterate over targets list appending each String in the list as a target
@@ -93,17 +86,17 @@ public class Pdp {
 
 		//create a key-value table to store responses
 		HashMap<String,Boolean> responses = new HashMap<String,Boolean>((int)(targets.size()/0.75) + 1, (float)0.75);
-		
+
 		//generate the parameters for the request 
 		List <NameValuePair> params = new ArrayList <NameValuePair>();
 		params.add(new BasicNameValuePair("auth_question", requestXML));
-		
+
 		//try executing the request and parsing the response
 		try {
 			//generate POST request
 			HttpPost request = new HttpPost(this.gcxServerRoot + "/system/authz");
 	        request.setEntity(new UrlEncodedFormEntity(params));
-			
+
 			//execute the request
 			HttpResponse response = this.client.execute(request);
 
@@ -125,7 +118,7 @@ public class Pdp {
 						//extract the name and whether the entity has access to the target
 						String name = this.xpathEngine.evaluate("@name", XMLtargets.item(y)).toLowerCase();
 						Boolean isAuthorized = (Boolean) this.xpathEngine.evaluate(". = 'yes'", XMLtargets.item(y), XPathConstants.BOOLEAN); 
-						
+
 						//store the response in the hashmap
 						responses.put(name, isAuthorized);
 					}
@@ -144,16 +137,30 @@ public class Pdp {
 		while(i.hasNext()) {
 			String target = i.next();
 			Boolean isAuthorized = responses.get(target.toLowerCase());
-			
+
 			//default to null if authorization response wasn't found
 			isAuthorized = (isAuthorized == null) ? Boolean.FALSE : isAuthorized;
-			
+
 			//add authorization response to response list
 			response.add(isAuthorized);
 		}
-		
+
 		//return the list of Boolean's
 		return response;
+	}
+
+	/**
+	 * @param entity authorization entity to check authorization for
+	 * @param target authorization target to check authorization for
+	 * @return boolean indicating whether entity has access to target, defaults to false if an error is encountered
+	 */
+	public boolean check(String entity, String target) {
+		//create list to hold the 1 target being checked
+		ArrayList<String> targets = new ArrayList<String>(1);
+		targets.add(target);
+
+		//process check and return results
+		return check(entity, targets).get(0).booleanValue();
 	}
 
 	public boolean confluenceCheck(String entity, String spaceKey, String permissionType) {
@@ -171,7 +178,7 @@ public class Pdp {
 
 			//execute the request
 			String response = this.client.execute(request, new BasicResponseHandler());
-			
+
 			//test response to see if it was yes or no
 			return response.equalsIgnoreCase("yes");
 		}

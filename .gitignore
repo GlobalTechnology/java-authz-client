@@ -1,2 +1,7 @@
 #maven ignores
-target
+/target
+
+#eclipse files
+/.classpath
+/.project
+/.settings

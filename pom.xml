@@ -3,7 +3,7 @@
 	<groupId>org.ccci.gcx</groupId>
 	<artifactId>GcxAuthzPdp</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>GcxAuthzPdp</name>
 	<url>http://maven.apache.org</url>
 	<build>

@@ -11,7 +11,7 @@ public class PdpFactory {
 		this.pdps = new HashMap<String,Pdp>();
 	}
 	
-	Pdp getPdp(String uri) {
+	public Pdp getPdp(String uri) {
 		//check for already existing PDP in pdps Map
 		Pdp pdp = pdps.get(uri);
 		

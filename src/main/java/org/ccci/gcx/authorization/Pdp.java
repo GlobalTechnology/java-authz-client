@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.ccci.gcx.authorization;
 
@@ -35,7 +35,7 @@ public class Pdp {
 	private XPath xpathEngine;
 
 	/**
-	 * 
+	 *
 	 */
 	public Pdp() {
 		this("https://www.mygcx.org");
@@ -65,7 +65,7 @@ public class Pdp {
 
 	/**
 	 * @param entity the entity that authorization is being checked for
-	 * @param targets a list of targets to check authorization for 
+	 * @param targets a list of targets to check authorization for
 	 * @return List<Boolean> a list of Boolean objects in the same order as the provided list of targets, method uses ArrayList to create List being returned
 	 */
 	public List<Boolean> check(String entity, List<String> targets) {
@@ -87,7 +87,7 @@ public class Pdp {
 		//create a key-value table to store responses
 		HashMap<String,Boolean> responses = new HashMap<String,Boolean>((int)(targets.size()/0.75) + 1, (float)0.75);
 
-		//generate the parameters for the request 
+		//generate the parameters for the request
 		List <NameValuePair> params = new ArrayList <NameValuePair>();
 		params.add(new BasicNameValuePair("auth_question", requestXML));
 
@@ -95,7 +95,7 @@ public class Pdp {
 		try {
 			//generate POST request
 			HttpPost request = new HttpPost(this.gcxServerRoot + "/system/authz");
-	        request.setEntity(new UrlEncodedFormEntity(params));
+			request.setEntity(new UrlEncodedFormEntity(params));
 
 			//execute the request
 			HttpResponse response = this.client.execute(request);
@@ -117,7 +117,7 @@ public class Pdp {
 					for(int y = 0; y < XMLtargets.getLength(); y++) {
 						//extract the name and whether the entity has access to the target
 						String name = this.xpathEngine.evaluate("@name", XMLtargets.item(y)).toLowerCase();
-						Boolean isAuthorized = (Boolean) this.xpathEngine.evaluate(". = 'yes'", XMLtargets.item(y), XPathConstants.BOOLEAN); 
+						Boolean isAuthorized = (Boolean) this.xpathEngine.evaluate(". = 'yes'", XMLtargets.item(y), XPathConstants.BOOLEAN);
 
 						//store the response in the hashmap
 						responses.put(name, isAuthorized);
@@ -166,15 +166,15 @@ public class Pdp {
 	public boolean confluenceCheck(String entity, String spaceKey, String permissionType) {
 		//generate the authorization check params
 		List <NameValuePair> params = new ArrayList <NameValuePair>();
-        params.add(new BasicNameValuePair("entity", entity));
-        params.add(new BasicNameValuePair("spaceKey", spaceKey));
-        params.add(new BasicNameValuePair("permissionType", permissionType));
+		params.add(new BasicNameValuePair("entity", entity));
+		params.add(new BasicNameValuePair("spaceKey", spaceKey));
+		params.add(new BasicNameValuePair("permissionType", permissionType));
 
 		//try executing the request and parsing the response
 		try {
 			//generate POST request
 			HttpPost request = new HttpPost(this.gcxServerRoot + "/system/authz-confluence");
-	        request.setEntity(new UrlEncodedFormEntity(params));
+			request.setEntity(new UrlEncodedFormEntity(params));
 
 			//execute the request
 			String response = this.client.execute(request, new BasicResponseHandler());

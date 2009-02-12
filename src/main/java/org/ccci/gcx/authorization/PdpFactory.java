@@ -10,20 +10,20 @@ public class PdpFactory {
 		super();
 		this.pdps = new HashMap<String,Pdp>();
 	}
-	
+
 	public Pdp getPdp(String uri) {
 		//check for already existing PDP in pdps Map
 		Pdp pdp = pdps.get(uri);
-		
+
 		//PDP doesn't exist yet, create it
 		if(pdp == null) {
 			//create PDP object
 			pdp = new Pdp(uri);
-			
+
 			//store PDP in pdps Map
 			pdps.put(uri, pdp);
 		}
-		
+
 		//return the pdp for the specified uri
 		return pdp;
 	}

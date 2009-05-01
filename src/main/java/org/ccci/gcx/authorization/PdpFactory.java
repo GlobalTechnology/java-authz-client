@@ -4,14 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PdpFactory {
-	Map<String,Pdp> pdps;
+	private final Map<String,Pdp> pdps = new HashMap<String,Pdp>();
 
-	public PdpFactory() {
-		super();
-		this.pdps = new HashMap<String,Pdp>();
-	}
-
-	public Pdp getPdp(String uri) {
+	public Pdp getPdp(final String uri) {
 		//check for already existing PDP in pdps Map
 		Pdp pdp = pdps.get(uri);
 

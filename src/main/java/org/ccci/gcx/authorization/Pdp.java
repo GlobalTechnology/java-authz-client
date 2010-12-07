@@ -90,39 +90,39 @@ public class Pdp {
 		requestXML += "</entity></auth_question>";
 
 		//create a key-value table to store responses
-		Map<String,Boolean> responses = new HashMap<String,Boolean>((int)(targets.size()/0.75) + 1, (float)0.75);
+		final Map<String,Boolean> responses = new HashMap<String,Boolean>((int)(targets.size()/0.75) + 1, (float)0.75);
 
 		//generate the parameters for the request
-		List <NameValuePair> params = new ArrayList <NameValuePair>();
+		final List <NameValuePair> params = new ArrayList <NameValuePair>();
 		params.add(new BasicNameValuePair("auth_question", requestXML));
 
 		//try executing the request and parsing the response
 		try {
 			//generate POST request
-			HttpPost request = new HttpPost(this.gcxServerRoot + "/system/authz");
+			final HttpPost request = new HttpPost(this.gcxServerRoot + "/system/authz");
 			request.setEntity(new UrlEncodedFormEntity(params));
 
 			//execute the request
-			HttpResponse response = this.getHttpClient().execute(request);
+			final HttpResponse response = this.getHttpClient().execute(request);
 
 			//parse the XML response to a Document object
-			Document responseDOM = this.getXmlParser().parse(response.getEntity().getContent());
+			final Document responseDOM = this.getXmlParser().parse(response.getEntity().getContent());
 
 			//locate all entity nodes
-			NodeList entities = (NodeList) this.getXPathEngine().evaluate("/auth_answer/entity", responseDOM.getDocumentElement(), XPathConstants.NODESET);
+			final NodeList entities = (NodeList) this.getXPathEngine().evaluate("/auth_answer/entity", responseDOM.getDocumentElement(), XPathConstants.NODESET);
 
 			//iterate over all found entity nodes
 			for(int x = 0; x < entities.getLength(); x++) {
 				//find the correct entity node
 				if(this.getXPathEngine().evaluate("@name", entities.item(x)).equalsIgnoreCase(entity)) {
 					//locate all target nodes
-					NodeList XMLtargets = (NodeList) this.getXPathEngine().evaluate("target", entities.item(x), XPathConstants.NODESET);
+					final NodeList XMLtargets = (NodeList) this.getXPathEngine().evaluate("target", entities.item(x), XPathConstants.NODESET);
 
 					//iterate over all target nodes
 					for(int y = 0; y < XMLtargets.getLength(); y++) {
 						//extract the name and whether the entity has access to the target
-						String name = this.getXPathEngine().evaluate("@name", XMLtargets.item(y)).toLowerCase();
-						Boolean isAuthorized = (Boolean) this.getXPathEngine().evaluate(". = 'yes'", XMLtargets.item(y), XPathConstants.BOOLEAN);
+						final String name = this.getXPathEngine().evaluate("@name", XMLtargets.item(y)).toLowerCase();
+						final Boolean isAuthorized = (Boolean) this.getXPathEngine().evaluate(". = 'yes'", XMLtargets.item(y), XPathConstants.BOOLEAN);
 
 						//store the response in the hashmap
 						responses.put(name, isAuthorized);
@@ -131,16 +131,16 @@ public class Pdp {
 			}
 		}
 		//we had an error while trying to execute the request, assume not authorized
-		catch(Exception e) {
+		catch(final Exception e) {
 			//output error encountered to the standard error stream before generating response
 			e.printStackTrace(System.err);
 		}
 
 		//generate response list
-		ArrayList<Boolean> response = new ArrayList<Boolean>(targets.size());
+		final ArrayList<Boolean> response = new ArrayList<Boolean>(targets.size());
 		i = targets.iterator();
 		while(i.hasNext()) {
-			String target = i.next();
+			final String target = i.next();
 			Boolean isAuthorized = responses.get(target.toLowerCase());
 
 			//default to null if authorization response wasn't found
@@ -161,16 +161,16 @@ public class Pdp {
 	 */
 	public boolean check(final String entity, final String target) {
 		//create list to hold the 1 target being checked
-		ArrayList<String> targets = new ArrayList<String>(1);
+		final ArrayList<String> targets = new ArrayList<String>(1);
 		targets.add(target);
 
 		//process check and return results
-		return check(entity, targets).get(0).booleanValue();
+		return this.check(entity, targets).get(0).booleanValue();
 	}
 
 	public boolean confluenceCheck(final String entity, final String spaceKey, final String permissionType) {
 		//generate the authorization check params
-		List <NameValuePair> params = new ArrayList <NameValuePair>();
+		final List <NameValuePair> params = new ArrayList <NameValuePair>();
 		params.add(new BasicNameValuePair("entity", entity));
 		params.add(new BasicNameValuePair("spaceKey", spaceKey));
 		params.add(new BasicNameValuePair("permissionType", permissionType));
@@ -178,17 +178,17 @@ public class Pdp {
 		//try executing the request and parsing the response
 		try {
 			//generate POST request
-			HttpPost request = new HttpPost(this.gcxServerRoot + "/system/authz-confluence");
+			final HttpPost request = new HttpPost(this.gcxServerRoot + "/system/authz-confluence");
 			request.setEntity(new UrlEncodedFormEntity(params));
 
 			//execute the request
-			String response = this.getHttpClient().execute(request, new BasicResponseHandler());
+			final String response = this.getHttpClient().execute(request, new BasicResponseHandler());
 
 			//test response to see if it was yes or no
 			return response.equalsIgnoreCase("yes");
 		}
 		//an error was encountered, so assume not authorized
-		catch(Exception e) {
+		catch(final Exception e) {
 			//output error encountered to the standard error stream before returning not authorized
 			e.printStackTrace(System.err);
 			return false;
@@ -208,15 +208,15 @@ public class Pdp {
 	public HttpClient getHttpClient() {
 		//Create HTTP client if client doesn't exist yet
 		if(this.httpClient == null) {
-			HttpParams params = new BasicHttpParams();
+			final HttpParams params = new BasicHttpParams();
 			HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
 			HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
 			HttpProtocolParams.setUseExpectContinue(params, true);
 			ConnManagerParams.setMaxTotalConnections(params, 100);
-			SchemeRegistry registry = new SchemeRegistry();
+			final SchemeRegistry registry = new SchemeRegistry();
 			registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
 			registry.register(new Scheme("https", SSLSocketFactory.getSocketFactory(), 443));
-			ClientConnectionManager cm = new ThreadSafeClientConnManager(params, registry);
+			final ClientConnectionManager cm = new ThreadSafeClientConnManager(params, registry);
 			this.httpClient = new DefaultHttpClient(cm, params);
 		}
 
@@ -229,7 +229,7 @@ public class Pdp {
 	public DocumentBuilder getXmlParser() throws ParserConfigurationException {
 		//create the XML parser
 		if(this.xmlParser == null) {
-			DocumentBuilderFactory XMLParserFactory = DocumentBuilderFactory.newInstance();
+			final DocumentBuilderFactory XMLParserFactory = DocumentBuilderFactory.newInstance();
 			XMLParserFactory.setCoalescing(true);
 			this.xmlParser = XMLParserFactory.newDocumentBuilder();
 		}
@@ -243,7 +243,7 @@ public class Pdp {
 	public XPath getXPathEngine() {
 		//create the XPath engine for use with the XML parser if one doesn't exist yet
 		if(this.xPathEngine == null) {
-			XPathFactory xpathFactory = XPathFactory.newInstance();
+			final XPathFactory xpathFactory = XPathFactory.newInstance();
 			this.xPathEngine = xpathFactory.newXPath();
 		}
 
@@ -262,21 +262,21 @@ public class Pdp {
 	/**
 	 * @param client the client to set
 	 */
-	public void setHttpClient(HttpClient httpClient) {
+	public void setHttpClient(final HttpClient httpClient) {
 		this.httpClient = httpClient;
 	}
 
 	/**
 	 * @param parser the XmlParser to set
 	 */
-	public void setXmlParser(DocumentBuilder xmlParser) {
+	public void setXmlParser(final DocumentBuilder xmlParser) {
 		this.xmlParser = xmlParser;
 	}
 
 	/**
 	 * @param xpathEngine the xpathEngine to set
 	 */
-	public void setXPathEngine(XPath xPathEngine) {
+	public void setXPathEngine(final XPath xPathEngine) {
 		this.xPathEngine = xPathEngine;
 	}
 }

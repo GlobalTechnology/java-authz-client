@@ -8,7 +8,7 @@ public class PdpFactory {
 
 	public Pdp getPdp(final String uri) {
 		//check for already existing PDP in pdps Map
-		Pdp pdp = pdps.get(uri);
+		Pdp pdp = this.pdps.get(uri);
 
 		//PDP doesn't exist yet, create it
 		if(pdp == null) {
@@ -16,7 +16,7 @@ public class PdpFactory {
 			pdp = new Pdp(uri);
 
 			//store PDP in pdps Map
-			pdps.put(uri, pdp);
+			this.pdps.put(uri, pdp);
 		}
 
 		//return the pdp for the specified uri

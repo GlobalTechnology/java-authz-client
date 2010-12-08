@@ -1,10 +1,11 @@
 package org.ccci.gcx.authorization.object;
 
 import org.ccci.gcx.authorization.AuthzConstants;
+import org.ccci.gcx.authorization.Object;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class Target extends Base {
+public class Target extends Object {
     public Target(final Namespace ns, final String name) {
 	super(ns, name);
 

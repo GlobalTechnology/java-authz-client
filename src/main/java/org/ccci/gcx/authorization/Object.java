@@ -1,14 +1,15 @@
-package org.ccci.gcx.authorization.object;
+package org.ccci.gcx.authorization;
 
+import org.ccci.gcx.authorization.object.Namespace;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public abstract class Base {
+public abstract class Object {
     private final static int HASHSEED = 31;
     final private Namespace ns;
     final private String name;
 
-    public Base(final Namespace ns, final String name) {
+    public Object(final Namespace ns, final String name) {
 	// throw an error if a name is not specified
 	if (name == null) {
 	    throw new IllegalArgumentException("Authorization objects require a name to be specified");
@@ -23,7 +24,7 @@ public abstract class Base {
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final java.lang.Object obj) {
 	if (this == obj) {
 	    return true;
 	}
@@ -33,7 +34,7 @@ public abstract class Base {
 	if (this.getClass() != obj.getClass()) {
 	    return false;
 	}
-	final Base other = (Base) obj;
+	final Object other = (Object) obj;
 	if (this.name == null) {
 	    if (other.name != null) {
 		return false;

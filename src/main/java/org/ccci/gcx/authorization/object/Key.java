@@ -1,10 +1,11 @@
 package org.ccci.gcx.authorization.object;
 
 import org.ccci.gcx.authorization.AuthzConstants;
+import org.ccci.gcx.authorization.Object;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public final class Key extends Base {
+public final class Key extends Object {
     public Key(final String key) {
 	super(null, key);
 

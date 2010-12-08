@@ -1,5 +1,8 @@
 package org.ccci.gcx.authorization.object;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 public abstract class Base {
     private final static int HASHSEED = 31;
     final private Namespace ns;
@@ -75,4 +78,6 @@ public abstract class Base {
 	    return this.ns + "|" + this.name;
 	}
     }
+
+    public abstract Element toXml(final Document doc);
 }

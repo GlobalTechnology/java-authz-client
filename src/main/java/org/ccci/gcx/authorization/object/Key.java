@@ -1,5 +1,9 @@
 package org.ccci.gcx.authorization.object;
 
+import org.ccci.gcx.authorization.AuthzConstants;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 public final class Key extends Base {
     public Key(final String key) {
 	super(null, key);
@@ -33,5 +37,15 @@ public final class Key extends Base {
 
     public final String getKey() {
 	return this.getName();
+    }
+
+    /* (non-Javadoc)
+     * @see org.ccci.gcx.authorization.object.Base#toXml(org.w3c.dom.Document)
+     */
+    @Override
+    public Element toXml(final Document doc) {
+	final Element e = doc.createElementNS(AuthzConstants.XMLNS, "key");
+	e.setAttributeNS(null, "key", this.getKey());
+	return e;
     }
 }

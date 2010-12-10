@@ -1,4 +1,4 @@
-package org.ccci.gcx.authorization;
+package org.ccci.gcx.authorization.response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.List;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 
+import org.ccci.gcx.authorization.Command;
+import org.ccci.gcx.authorization.Response;
 import org.ccci.gcx.authorization.command.Check;
 import org.ccci.gcx.authorization.exception.InvalidXmlException;
 import org.w3c.dom.Element;

@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.xml.xpath.XPath;
+
 import org.ccci.gcx.authorization.Command;
+import org.ccci.gcx.authorization.exception.InvalidXmlException;
 import org.ccci.gcx.authorization.exception.NullEntityException;
 import org.ccci.gcx.authorization.exception.NullObjectException;
 import org.ccci.gcx.authorization.exception.NullTargetException;
 import org.ccci.gcx.authorization.object.Entity;
 import org.ccci.gcx.authorization.object.Target;
+import org.ccci.gcx.authorization.response.CheckResponse;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -60,6 +64,15 @@ public final class Check extends Command {
 	// create a new list to prevent action at a distance on the list of
 	// targets being checked
 	return new ArrayList<Target>(this.targets);
+    }
+
+    /* (non-Javadoc)
+     * @see org.ccci.gcx.authorization.Command#newResponse(org.w3c.dom.Element, javax.xml.xpath.XPath)
+     */
+    @Override
+    public CheckResponse newResponse(final Element commandXml,
+	    final XPath xpathEngine) throws InvalidXmlException {
+	return new CheckResponse(this, commandXml, xpathEngine);
     }
 
     @Override

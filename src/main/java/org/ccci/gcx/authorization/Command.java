@@ -1,5 +1,8 @@
 package org.ccci.gcx.authorization;
 
+import javax.xml.xpath.XPath;
+
+import org.ccci.gcx.authorization.exception.InvalidXmlException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -19,6 +22,11 @@ public abstract class Command {
      */
     public String getId() {
 	return this.id;
+    }
+
+    public Response newResponse(final Element commandXml,
+	    final XPath xpathEngine) throws InvalidXmlException {
+	return new Response(this, commandXml, xpathEngine);
     }
 
     public Element toXml(final Document doc) {

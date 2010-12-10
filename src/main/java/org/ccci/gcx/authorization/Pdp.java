@@ -43,6 +43,7 @@ import org.w3c.dom.NodeList;
  * @author Daniel Frett
  *
  */
+@Deprecated
 public class Pdp {
     private String gcxServerRoot;
     private HttpClient httpClient;

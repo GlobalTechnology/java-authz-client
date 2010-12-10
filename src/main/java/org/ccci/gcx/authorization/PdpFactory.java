@@ -3,6 +3,7 @@ package org.ccci.gcx.authorization;
 import java.util.HashMap;
 import java.util.Map;
 
+@Deprecated
 public class PdpFactory {
     private final Map<String,Pdp> pdps = new HashMap<String,Pdp>();
 

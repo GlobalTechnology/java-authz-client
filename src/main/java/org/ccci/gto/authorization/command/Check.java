@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.xpath.XPath;
 
+import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.exception.NullEntityException;
 import org.ccci.gto.authorization.exception.NullObjectException;
@@ -69,8 +70,7 @@ public final class Check extends AbstractCommand {
      * @see org.ccci.gcx.authorization.Command#newResponse(org.w3c.dom.Element, javax.xml.xpath.XPath)
      */
     @Override
-    public CheckResponse newResponse(final Element commandXml,
-	    final XPath xpathEngine) throws InvalidXmlException {
+    public Response<Check> newResponse(final Element commandXml, final XPath xpathEngine) throws InvalidXmlException {
 	return new CheckResponse(this, commandXml, xpathEngine);
     }
 

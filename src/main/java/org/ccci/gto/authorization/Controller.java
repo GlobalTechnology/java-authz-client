@@ -31,7 +31,7 @@ public class Controller {
 	}
 
 	// process the specified commands
-	final List<Response> responses = this.getProcessor().process(commands);
+        final List<Response<? extends Command>> responses = this.getProcessor().process(commands);
 
 	// store the responses in the commands object
 	commands.setResponses(responses);

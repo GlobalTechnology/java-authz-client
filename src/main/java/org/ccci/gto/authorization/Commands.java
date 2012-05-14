@@ -16,7 +16,7 @@ import org.w3c.dom.Element;
 public class Commands {
     private boolean processed = false;
     private final ArrayList<Command> commands;
-    private ArrayList<Response> responses;
+    private ArrayList<Response<? extends Command>> responses;
 
     public Commands() {
         this.commands = new ArrayList<Command>();
@@ -86,11 +86,11 @@ public class Commands {
     /**
      * @return the responses
      */
-    public List<Response> getResponses() {
+    public List<Response<? extends Command>> getResponses() {
 	if (!this.isProcessed()) {
 	    return null;
 	} else {
-	    return new ArrayList<Response>(this.responses);
+            return new ArrayList<Response<? extends Command>>(this.responses);
 	}
     }
 
@@ -106,7 +106,7 @@ public class Commands {
      *            the responses to set
      * @throws ProcessingException
      */
-    public void setResponses(final List<Response> responses)
+    public void setResponses(final List<Response<? extends Command>> responses)
 	    throws ProcessingException {
 	// throw an error if the current commands have already been processed
 	if (this.responses != null || this.isProcessed()) {
@@ -122,7 +122,7 @@ public class Commands {
 	}
 
 	// store the responses and mark the commands object as processed
-	this.responses = new ArrayList<Response>(responses);
+        this.responses = new ArrayList<Response<? extends Command>>(responses);
 	this.processed = true;
     }
 

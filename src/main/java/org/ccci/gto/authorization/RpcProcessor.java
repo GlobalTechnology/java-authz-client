@@ -106,11 +106,10 @@ public class RpcProcessor implements Processor {
 	return this.xpathEngine;
     }
 
-    public List<Response> process(final Commands commands) throws ProcessingException {
+    public List<Response<? extends Command>> process(final Commands commands) throws ProcessingException {
 	// get the commands and generate a responses ArrayList
         final List<Command> cmds = commands.getCommands();
-	final ArrayList<Response> responses = new ArrayList<Response>(cmds
-		.size());
+        final ArrayList<Response<? extends Command>> responses = new ArrayList<Response<? extends Command>>(cmds.size());
 
 	// wrap processing in a try block to catch any of the various exceptions
 	// that could be thrown and wrap them in a ProcessingException

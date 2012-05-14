@@ -7,14 +7,12 @@ import java.util.List;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 
-import org.ccci.gto.authorization.Command;
-import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.command.Check;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public final class CheckResponse extends Response {
+public final class CheckResponse extends AbstractResponse<Check> {
     private final List<Boolean> responses;
 
     public CheckResponse(final Check command, final Element commandXml,
@@ -51,7 +49,7 @@ public final class CheckResponse extends Response {
 	}
     }
 
-    public CheckResponse(final Command command, final Integer code, final List<Boolean> responses) {
+    public CheckResponse(final Check command, final Integer code, final List<Boolean> responses) {
 	super(command, code);
 	if (responses != null) {
             this.responses = Collections.unmodifiableList(new ArrayList<Boolean>(responses));

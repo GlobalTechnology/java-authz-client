@@ -10,10 +10,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public abstract class AbstractCommand implements Command {
-    public Response newResponse(final Element commandXml,
-	    final XPath xpathEngine) throws InvalidXmlException {
-	return new Response(this, commandXml, xpathEngine);
-    }
+    public abstract Response<? extends AbstractCommand> newResponse(final Element commandXml, final XPath xpathEngine)
+            throws InvalidXmlException;
 
     public Element toXml(final Document doc) {
         return doc.createElementNS(AuthzConstants.XMLNS, "command");

@@ -1,11 +1,10 @@
 package org.ccci.gto.authorization.object;
 
 import org.ccci.gto.authorization.AuthzConstants;
-import org.ccci.gto.authorization.Object;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class Target extends Object {
+public class Target extends AbstractObject {
     public Target(final Namespace ns, final String name) {
 	super(ns, name);
 

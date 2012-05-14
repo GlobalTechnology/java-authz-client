@@ -13,7 +13,7 @@ import org.w3c.dom.NodeList;
 public class Response {
     private final Command command;
     private final Integer code;
-    private final ArrayList<Object> objects;
+    private final ArrayList<AuthzObject> objects;
 
     public Response(final Command command, final Element commandXml, final XPath xpathEngine)
             throws InvalidXmlException {
@@ -31,7 +31,7 @@ public class Response {
 	    final NodeList objectsNL = (NodeList) xpathEngine.evaluate(
 		    "authz:entity | authz:user | authz:group | authz:target | authz:resource | authz:role | authz:namespace | authz:key",
 		    responseXml, XPathConstants.NODESET);
-	    this.objects = new ArrayList<Object>(objectsNL.getLength());
+            this.objects = new ArrayList<AuthzObject>(objectsNL.getLength());
 
 	    // iterate over all the found objects
 	    for (int x = 0; x < objectsNL.getLength(); x++) {
@@ -50,13 +50,13 @@ public class Response {
 	this(command, code, null);
     }
 
-    public Response(final Command command, final Integer code, final List<Object> objects) {
+    public Response(final Command command, final Integer code, final List<AuthzObject> objects) {
 	this.command = command;
 	this.code = code;
 	if (objects != null) {
-	    this.objects = new ArrayList<Object>(objects);
+            this.objects = new ArrayList<AuthzObject>(objects);
 	} else {
-	    this.objects = new ArrayList<Object>(0);
+            this.objects = new ArrayList<AuthzObject>(0);
 	}
     }
 
@@ -74,7 +74,7 @@ public class Response {
     /**
      * @return the objects
      */
-    public ArrayList<Object> getObjects() {
-	return new ArrayList<Object>(this.objects);
+    public ArrayList<AuthzObject> getObjects() {
+        return new ArrayList<AuthzObject>(this.objects);
     }
 }

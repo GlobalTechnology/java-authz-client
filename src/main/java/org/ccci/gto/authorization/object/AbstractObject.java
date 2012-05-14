@@ -1,15 +1,15 @@
-package org.ccci.gto.authorization;
+package org.ccci.gto.authorization.object;
 
-import org.ccci.gto.authorization.object.Namespace;
+import org.ccci.gto.authorization.AuthzObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public abstract class Object {
+public abstract class AbstractObject implements AuthzObject {
     private final static int HASHSEED = 31;
     final private Namespace ns;
     final private String name;
 
-    public Object(final Namespace ns, final String name) {
+    public AbstractObject(final Namespace ns, final String name) {
 	// throw an error if a name is not specified
 	if (name == null) {
 	    throw new IllegalArgumentException("Authorization objects require a name to be specified");
@@ -20,11 +20,19 @@ public abstract class Object {
 	this.name = name;
     }
 
+    public final Namespace getNamespace() {
+        return this.ns;
+    }
+
+    public final String getName() {
+        return this.name;
+    }
+
     /* (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(final java.lang.Object obj) {
+    public boolean equals(final Object obj) {
 	if (this == obj) {
 	    return true;
 	}
@@ -34,7 +42,7 @@ public abstract class Object {
 	if (this.getClass() != obj.getClass()) {
 	    return false;
 	}
-	final Object other = (Object) obj;
+	final AbstractObject other = (AbstractObject) obj;
 	if (this.name == null) {
 	    if (other.name != null) {
 		return false;
@@ -50,14 +58,6 @@ public abstract class Object {
 	    return false;
 	}
 	return true;
-    }
-
-    public final String getName() {
-	return this.name;
-    }
-
-    public final Namespace getNamespace() {
-	return this.ns;
     }
 
     /* (non-Javadoc)

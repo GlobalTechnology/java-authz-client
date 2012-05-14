@@ -1,19 +1,21 @@
 package org.ccci.gto.authorization.object;
 
 import org.ccci.gto.authorization.AuthzConstants;
-import org.ccci.gto.authorization.Object;
+import org.ccci.gto.authorization.AuthzObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public final class Key extends Object {
-    public Key(final String key) {
-	super(null, key);
+public final class Key implements AuthzObject {
+    final String key;
 
+    public Key(final String key) {
 	// throw an error if the key is too long
 	if (key.length() > 44) {
 	    throw new IllegalArgumentException(
 		    "Authorization keys are 44 or less characters");
 	}
+
+        this.key = key;
     }
 
     /*
@@ -32,12 +34,12 @@ public final class Key extends Object {
 	    return false;
 	}
 
-	// compare the actual name for both namespace objects
+        // compare the actual key for both Key objects
 	return this.getKey().equals(obj.getKey());
     }
 
     public final String getKey() {
-	return this.getName();
+        return this.key;
     }
 
     /* (non-Javadoc)
@@ -46,7 +48,7 @@ public final class Key extends Object {
     @Override
     public Element toXml(final Document doc) {
 	final Element e = doc.createElementNS(AuthzConstants.XMLNS, "key");
-	e.setAttributeNS(null, "key", this.getKey());
+        e.setAttributeNS(null, "key", this.key);
 	return e;
     }
 }

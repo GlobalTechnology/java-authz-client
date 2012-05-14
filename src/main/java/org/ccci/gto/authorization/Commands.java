@@ -128,7 +128,7 @@ public class Commands {
 
     public Element toXml(final Document doc) {
 	//generate base xml node
-	final Element commands = doc.createElementNS(AuthzConstants.XMLNS, "commands");
+	final Element commands = doc.createElementNS(Constants.XMLNS_AUTHZ, "commands");
 
 	// iterate over commands list appending xml for each command
         for (final Command cmd : this.commands) {

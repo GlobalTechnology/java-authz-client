@@ -1,4 +1,4 @@
-package org.ccci.gto.authorization;
+package org.ccci.gto.authorization.processor;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -34,6 +34,11 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
+import org.ccci.gto.authorization.AuthzNamespaceContext;
+import org.ccci.gto.authorization.Command;
+import org.ccci.gto.authorization.Commands;
+import org.ccci.gto.authorization.Processor;
+import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.ProcessingException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

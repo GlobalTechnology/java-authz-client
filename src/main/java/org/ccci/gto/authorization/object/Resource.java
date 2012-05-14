@@ -1,6 +1,6 @@
 package org.ccci.gto.authorization.object;
 
-import org.ccci.gto.authorization.AuthzConstants;
+import org.ccci.gto.authorization.Constants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -18,7 +18,7 @@ public final class Resource extends Target {
      */
     @Override
     public Element toXml(final Document doc) {
-	final Element e = doc.createElementNS(AuthzConstants.XMLNS, "resource");
+	final Element e = doc.createElementNS(Constants.XMLNS_AUTHZ, "resource");
 	e.setAttributeNS(null, "namespace", this.getNamespace().toString());
 	e.setAttributeNS(null, "name", this.getName());
 	return e;

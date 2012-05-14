@@ -1,6 +1,6 @@
 package org.ccci.gto.authorization.object;
 
-import org.ccci.gto.authorization.AuthzConstants;
+import org.ccci.gto.authorization.Constants;
 import org.ccci.gto.authorization.AuthzObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -47,7 +47,7 @@ public final class Key implements AuthzObject {
      */
     @Override
     public Element toXml(final Document doc) {
-	final Element e = doc.createElementNS(AuthzConstants.XMLNS, "key");
+	final Element e = doc.createElementNS(Constants.XMLNS_AUTHZ, "key");
         e.setAttributeNS(null, "key", this.key);
 	return e;
     }

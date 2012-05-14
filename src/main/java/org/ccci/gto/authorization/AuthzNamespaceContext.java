@@ -1,5 +1,7 @@
 package org.ccci.gto.authorization;
 
+import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
+
 import java.util.Iterator;
 
 import javax.xml.XMLConstants;
@@ -16,7 +18,7 @@ public final class AuthzNamespaceContext implements NamespaceContext {
 	} else if (prefix.equals(XMLConstants.XMLNS_ATTRIBUTE)) {
 	    return XMLConstants.XMLNS_ATTRIBUTE_NS_URI;
 	} else if (prefix.equals("authz")) {
-	    return Constants.XMLNS_AUTHZ;
+            return XMLNS_AUTHZ;
 	} else {
 	    return XMLConstants.NULL_NS_URI;
 	}

@@ -1,8 +1,9 @@
 package org.ccci.gto.authorization.command;
 
+import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
+
 import javax.xml.xpath.XPath;
 
-import org.ccci.gto.authorization.Constants;
 import org.ccci.gto.authorization.Command;
 import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
@@ -14,6 +15,6 @@ public abstract class AbstractCommand implements Command {
             throws InvalidXmlException;
 
     public Element toXml(final Document doc) {
-        return doc.createElementNS(Constants.XMLNS_AUTHZ, "command");
+        return doc.createElementNS(XMLNS_AUTHZ, "command");
     }
 }

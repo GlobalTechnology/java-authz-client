@@ -1,6 +1,7 @@
 package org.ccci.gto.authorization.object;
 
-import org.ccci.gto.authorization.Constants;
+import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -29,7 +30,7 @@ public class Entity extends AbstractObject {
      */
     @Override
     public Element toXml(final Document doc) {
-	final Element e = doc.createElementNS(Constants.XMLNS_AUTHZ, "entity");
+        final Element e = doc.createElementNS(XMLNS_AUTHZ, "entity");
 	e.setAttributeNS(null, "namespace", this.getNamespace().toString());
 	e.setAttributeNS(null, "name", this.getName());
 	return e;

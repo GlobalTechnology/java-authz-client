@@ -1,6 +1,7 @@
 package org.ccci.gto.authorization.object;
 
-import org.ccci.gto.authorization.Constants;
+import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -44,7 +45,7 @@ public final class Namespace extends AbstractObject {
      */
     @Override
     public Element toXml(final Document doc) {
-	final Element e = doc.createElementNS(Constants.XMLNS_AUTHZ, "namespace");
+        final Element e = doc.createElementNS(XMLNS_AUTHZ, "namespace");
 	e.setAttributeNS(null, "name", this.getName());
 	return e;
     }

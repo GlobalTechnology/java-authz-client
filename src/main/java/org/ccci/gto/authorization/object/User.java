@@ -1,8 +1,9 @@
 package org.ccci.gto.authorization.object;
 
+import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
+
 import java.util.regex.Pattern;
 
-import org.ccci.gto.authorization.Constants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -49,7 +50,7 @@ public final class User extends Entity {
      */
     @Override
     public Element toXml(final Document doc) {
-	final Element e = doc.createElementNS(Constants.XMLNS_AUTHZ, "user");
+        final Element e = doc.createElementNS(XMLNS_AUTHZ, "user");
 	e.setAttributeNS(null, "name", this.getName());
 	return e;
     }

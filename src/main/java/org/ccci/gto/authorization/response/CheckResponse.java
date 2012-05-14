@@ -1,6 +1,7 @@
 package org.ccci.gto.authorization.response;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.xpath.XPath;
@@ -14,7 +15,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public final class CheckResponse extends Response {
-    private final ArrayList<Boolean> responses;
+    private final List<Boolean> responses;
 
     public CheckResponse(final Check command, final Element commandXml,
 	    final XPath xpathEngine) throws InvalidXmlException {
@@ -30,39 +31,39 @@ public final class CheckResponse extends Response {
 		    XPathConstants.NODESET);
 
 	    // generate the responses list
-	    this.responses = new ArrayList<Boolean>(targetsNL.getLength());
+            final ArrayList<Boolean> responses = new ArrayList<Boolean>(targetsNL.getLength());
 
 	    // iterate over all found target xml nodes
 	    for (int x = 0; x < targetsNL.getLength(); x++) {
 		// extract the check response from the target xml
 		final Element targetXml = (Element) targetsNL.item(x);
-		this.responses.add(new Boolean(targetXml.getAttributeNS(null,
-			"decision").equals("permit")));
+                responses.add(new Boolean(targetXml.getAttributeNS(null, "decision").equals("permit")));
 	    }
+
+            this.responses = Collections.unmodifiableList(responses);
 	} catch (final Exception e) {
 	    throw new InvalidXmlException(e);
 	}
 
 	// throw an error if there aren't enough responses
 	if (this.responses.size() != command.getTargets().size()) {
-	    throw new InvalidXmlException(
-		    "Invalid number of check command responses");
+            throw new InvalidXmlException("Invalid number of check command responses");
 	}
     }
 
     public CheckResponse(final Command command, final Integer code, final List<Boolean> responses) {
 	super(command, code);
 	if (responses != null) {
-	    this.responses = new ArrayList<Boolean>(responses);
+            this.responses = Collections.unmodifiableList(new ArrayList<Boolean>(responses));
 	} else {
-	    this.responses = new ArrayList<Boolean>(0);
+            this.responses = Collections.emptyList();
 	}
     }
 
     /**
      * @return the responses
      */
-    public ArrayList<Boolean> getResponses() {
-	return new ArrayList<Boolean>(this.responses);
+    public List<Boolean> getResponses() {
+        return this.responses;
     }
 }

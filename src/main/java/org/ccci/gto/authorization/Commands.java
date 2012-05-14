@@ -1,7 +1,6 @@
 package org.ccci.gto.authorization;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.ccci.gto.authorization.command.Check;
@@ -20,7 +19,7 @@ public class Commands {
     private ArrayList<Response> responses;
 
     public Commands() {
-	this.commands = new ArrayList<Command>();
+        this.commands = new ArrayList<Command>();
     }
 
     public Commands addCommand(final Command cmd) throws NullCommandException,
@@ -81,7 +80,7 @@ public class Commands {
      */
     public List<Command> getCommands() {
 	// return a copy of the array list to prevent action at a distance
-	return new ArrayList<Command>(this.commands);
+        return new ArrayList<Command>(this.commands);
     }
 
     /**
@@ -132,9 +131,8 @@ public class Commands {
 	final Element commands = doc.createElementNS(AuthzConstants.XMLNS, "commands");
 
 	// iterate over commands list appending xml for each command
-	final Iterator<Command> c = this.commands.iterator();
-	while (c.hasNext()) {
-	    commands.appendChild(c.next().toXml(doc));
+        for (final Command cmd : this.commands) {
+            commands.appendChild(cmd.toXml(doc));
 	}
 
 	// return the generated authorization commands xml

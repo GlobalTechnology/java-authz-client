@@ -108,7 +108,7 @@ public class RpcProcessor implements Processor {
 
     public List<Response> process(final Commands commands) throws ProcessingException {
 	// get the commands and generate a responses ArrayList
-	final List<Command> cmds = commands.getCommands();
+        final List<Command> cmds = commands.getCommands();
 	final ArrayList<Response> responses = new ArrayList<Response>(cmds
 		.size());
 

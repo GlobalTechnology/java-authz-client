@@ -31,5 +31,4 @@ public final class AuthzNamespaceContext implements NamespaceContext {
 	// TODO Not Implemented
 	return null;
     }
-
 }

@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.xml.xpath.XPath;
 
-import org.ccci.gto.authorization.Command;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.exception.NullEntityException;
 import org.ccci.gto.authorization.exception.NullObjectException;
@@ -17,7 +16,7 @@ import org.ccci.gto.authorization.response.CheckResponse;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public final class Check extends Command {
+public final class Check extends AbstractCommand {
     private final Entity entity;
     private final ArrayList<Target> targets;
 

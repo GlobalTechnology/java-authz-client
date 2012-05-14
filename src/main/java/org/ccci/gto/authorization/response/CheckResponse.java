@@ -50,8 +50,7 @@ public final class CheckResponse extends Response {
 	}
     }
 
-    public CheckResponse(final Command command, final Integer code,
-	    final List<Boolean> responses) {
+    public CheckResponse(final Command command, final Integer code, final List<Boolean> responses) {
 	super(command, code);
 	if (responses != null) {
 	    this.responses = new ArrayList<Boolean>(responses);

@@ -15,12 +15,8 @@ public class Response {
     private final Integer code;
     private final ArrayList<Object> objects;
 
-    public Response(final Command command, final Element commandXml, final XPath xpathEngine) throws InvalidXmlException {
-	// throw an error if the id of cmdXml doesn't match the id of this
-	// command
-	if (!command.getId().equals(commandXml.getAttributeNS(null, "id"))) {
-	    throw new InvalidXmlException("response command id doesn't match");
-	}
+    public Response(final Command command, final Element commandXml, final XPath xpathEngine)
+            throws InvalidXmlException {
 	this.command = command;
 
 	try {
@@ -54,8 +50,7 @@ public class Response {
 	this(command, code, null);
     }
 
-    public Response(final Command command, final Integer code,
-	    final List<Object> objects) {
+    public Response(final Command command, final Integer code, final List<Object> objects) {
 	this.command = command;
 	this.code = code;
 	if (objects != null) {

@@ -12,6 +12,10 @@ public final class User extends Entity {
     public static final User GUEST = new User("GUEST");
     public static final User SUPERUSER = new User("SUPERUSER");
 
+    public User(final Element xmlNode) {
+	this(xmlNode.getAttributeNS(null, "name"));
+    }
+
     public User(final String name) {
 	super(Namespace.ROOT, name.toUpperCase());
 

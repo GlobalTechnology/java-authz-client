@@ -10,6 +10,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public final class Login extends AbstractCommand {
+    public final static String TYPE = "login";
+
     private final Key key;
 
     public Login(final Key key) {
@@ -22,7 +24,7 @@ public final class Login extends AbstractCommand {
     }
 
     public String type() {
-        return "login";
+        return TYPE;
     }
 
     @Override

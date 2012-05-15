@@ -40,11 +40,15 @@ import org.ccci.gto.authorization.Commands;
 import org.ccci.gto.authorization.Processor;
 import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.ProcessingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class RpcProcessor implements Processor {
+    private static final Logger LOG = LoggerFactory.getLogger(RpcProcessor.class);
+
     private final String authzUri;
     private DocumentBuilder xmlDocumentBuilder;
     private HttpClient httpClient;
@@ -132,9 +136,16 @@ public class RpcProcessor implements Processor {
 	    // generate a byte array for the xml document
 	    final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	    final Transformer serializer = TransformerFactory.newInstance().newTransformer();
+            serializer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 	    serializer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+            serializer.setOutputProperty(OutputKeys.INDENT, (LOG.isDebugEnabled() ? "yes" : "no"));
 	    serializer.transform(new DOMSource(requestDom), new StreamResult(
 		    baos));
+
+            // dump request
+            if (LOG.isDebugEnabled()) {
+                LOG.debug(baos.toString());
+            }
 
 	    // generate POST request
 	    final HttpPost request = new HttpPost(this.authzUri);
@@ -149,6 +160,13 @@ public class RpcProcessor implements Processor {
 	    // parse the XML response to an XML Document object
 	    final Document responseDom = documentBuilder.parse(response
 		    .getEntity().getContent());
+
+            // dump response if debug is enabled
+            if (LOG.isDebugEnabled()) {
+                final ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
+                serializer.transform(new DOMSource(responseDom), new StreamResult(baos2));
+                LOG.debug(baos2.toString());
+            }
 
 	    // extract all commands from the response XML
 	    final NodeList commandsNL = (NodeList) xpathEngine.evaluate(

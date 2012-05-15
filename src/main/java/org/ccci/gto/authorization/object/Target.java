@@ -23,6 +23,10 @@ public class Target extends AbstractObject {
 	this(new Namespace(ns), name);
     }
 
+    public Target(final Element object) {
+        super(object);
+    }
+
     /*
      * (non-Javadoc)
      *

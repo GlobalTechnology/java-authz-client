@@ -18,6 +18,10 @@ public final class Namespace extends AbstractObject {
 	}
     }
 
+    public Namespace(final Element object) {
+        this(object.getAttributeNS(null, "name"));
+    }
+
     /*
      * (non-Javadoc)
      *

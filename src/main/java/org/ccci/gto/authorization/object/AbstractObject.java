@@ -20,6 +20,10 @@ public abstract class AbstractObject implements AuthzObject {
 	this.name = name;
     }
 
+    public AbstractObject(final Element object) {
+        this(new Namespace(object.getAttributeNS(null, "namespace")), object.getAttributeNS(null, "name"));
+    }
+
     public final Namespace getNamespace() {
         return this.ns;
     }

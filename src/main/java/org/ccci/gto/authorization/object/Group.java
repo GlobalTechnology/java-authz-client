@@ -18,6 +18,10 @@ public final class Group extends Entity {
 	this(new Namespace(ns), name);
     }
 
+    public Group(final Element object) {
+        super(object);
+    }
+
     /*
      * (non-Javadoc)
      *

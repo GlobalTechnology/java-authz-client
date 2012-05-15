@@ -19,6 +19,10 @@ public final class Key implements AuthzObject {
         this.key = key;
     }
 
+    public Key(final Element object) {
+        this(object.getAttributeNS(null, "key"));
+    }
+
     /*
      * (non-Javadoc)
      *

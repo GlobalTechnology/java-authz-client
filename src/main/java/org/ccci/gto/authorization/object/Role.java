@@ -14,6 +14,10 @@ public final class Role extends Target {
 	this(new Namespace(ns), name);
     }
 
+    public Role(final Element object) {
+        super(object);
+    }
+
     /* (non-Javadoc)
      * @see org.ccci.gcx.authorization.object.Base#toXml(org.w3c.dom.Document)
      */

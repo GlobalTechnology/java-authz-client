@@ -23,6 +23,10 @@ public class Entity extends AbstractObject {
 	this(new Namespace(ns), name);
     }
 
+    public Entity(final Element object) {
+        super(object);
+    }
+
     /*
      * (non-Javadoc)
      *

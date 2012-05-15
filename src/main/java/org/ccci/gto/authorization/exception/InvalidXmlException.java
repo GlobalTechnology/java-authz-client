@@ -10,4 +10,8 @@ public class InvalidXmlException extends Exception {
     public InvalidXmlException(final Throwable exception) {
 	super(exception);
     }
+
+    public InvalidXmlException(final String error, final Throwable exception) {
+        super(error, exception);
+    }
 }

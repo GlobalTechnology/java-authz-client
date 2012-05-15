@@ -11,10 +11,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public abstract class AbstractCommand implements Command {
-    public abstract Response<? extends AbstractCommand> newResponse(final Element commandXml, final XPath xpathEngine)
-            throws InvalidXmlException;
+    public abstract String type();
 
     public Element toXml(final Document doc) {
-        return doc.createElementNS(XMLNS_AUTHZ, "command");
+        final Element cmdXml = doc.createElementNS(XMLNS_AUTHZ, "command");
+        cmdXml.setAttributeNS(null, "type", this.type());
+        return cmdXml;
     }
+
+    public abstract Response<? extends AbstractCommand> newResponse(final Element commandXml, final XPath xpathEngine)
+            throws InvalidXmlException;
 }

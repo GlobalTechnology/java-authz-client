@@ -7,6 +7,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public interface Command {
+    public String type();
+
     public Response<? extends Command> newResponse(final Element commandXml, final XPath xpathEngine)
             throws InvalidXmlException;
 

@@ -1,7 +1,8 @@
 package org.ccci.gto.authorization.command;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.xpath.XPath;
@@ -9,7 +10,6 @@ import javax.xml.xpath.XPath;
 import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.exception.NullEntityException;
-import org.ccci.gto.authorization.exception.NullObjectException;
 import org.ccci.gto.authorization.exception.NullTargetException;
 import org.ccci.gto.authorization.object.Entity;
 import org.ccci.gto.authorization.object.Target;
@@ -18,36 +18,33 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public final class Check extends AbstractCommand {
+    private final static String TYPE = "check";
     private final Entity entity;
-    private final ArrayList<Target> targets;
+    private final List<Target> targets;
 
-    public Check(final Entity entity, final List<Target> targets)
-	    throws NullObjectException {
-	this.entity = entity;
-	this.targets = new ArrayList<Target>(targets);
+    public Check(final Entity entity, final Target target) {
+        this(entity, Arrays.asList(target));
+    }
 
-	// throw an error if an invalid entity was specified
-	if (entity == null) {
+    public Check(final Entity entity, final List<Target> targets) {
+        this.entity = entity;
+        this.targets = Collections.unmodifiableList(new ArrayList<Target>(targets));
+
+        // throw an error if an invalid entity was specified
+        if (this.entity == null) {
 	    throw new NullEntityException();
 	}
 	// throw an error if there are missing targets in the specified List
-	final Iterator<Target> t = this.targets.iterator();
-	while (t.hasNext()) {
-	    if (t.next() == null) {
+        for (final Target target : this.targets) {
+            if (target == null) {
 		throw new NullTargetException();
 	    }
 	}
+
     }
 
-    public Check(final Entity entity, final Target target)
-	    throws NullObjectException {
-	this(entity, new ArrayList<Target>());
-	this.targets.add(target);
-
-	// throw an error if there is a target isn't specified
-	if (target == null) {
-	    throw new NullTargetException();
-	}
+    public String type() {
+        return TYPE;
     }
 
     /**
@@ -61,9 +58,7 @@ public final class Check extends AbstractCommand {
      * @return the targets
      */
     public List<Target> getTargets() {
-	// create a new list to prevent action at a distance on the list of
-	// targets being checked
-	return new ArrayList<Target>(this.targets);
+        return this.targets;
     }
 
     /* (non-Javadoc)
@@ -78,20 +73,17 @@ public final class Check extends AbstractCommand {
     public Element toXml(final Document doc) {
 	//generate base command
 	final Element command = super.toXml(doc);
-	command.setAttributeNS(null, "type", "check");
 
 	//attach the entity for this check command
 	final Element entity = this.entity.toXml(doc);
 	command.appendChild(entity);
 
 	// iterate over targets list appending xml for each Target
-	final Iterator<Target> t = this.targets.iterator();
-	while (t.hasNext()) {
-	    entity.appendChild(t.next().toXml(doc));
+        for (final Target target : this.targets) {
+            entity.appendChild(target.toXml(doc));
 	}
 
 	// return the generated authorization command xml
 	return command;
     }
-
 }

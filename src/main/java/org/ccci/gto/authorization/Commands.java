@@ -7,11 +7,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.ccci.gto.authorization.command.Check;
+import org.ccci.gto.authorization.command.Login;
 import org.ccci.gto.authorization.exception.AlreadyProcessedException;
 import org.ccci.gto.authorization.exception.InvalidCommandException;
 import org.ccci.gto.authorization.exception.NullCommandException;
 import org.ccci.gto.authorization.exception.ProcessingException;
 import org.ccci.gto.authorization.object.Entity;
+import org.ccci.gto.authorization.object.Key;
 import org.ccci.gto.authorization.object.Target;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -52,6 +54,17 @@ public class Commands {
         // generate and add a new check command
         try {
             return this.addCommand(new Check(entity, target));
+        }
+        // throw an invalid command exception
+        catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands login(final Key key) throws InvalidCommandException {
+        // generate and add a new check command
+        try {
+            return this.addCommand(new Login(key));
         }
         // throw an invalid command exception
         catch (final Exception e) {

@@ -3,18 +3,21 @@ package org.ccci.gto.authorization;
 import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import org.ccci.gto.authorization.command.Check;
 import org.ccci.gto.authorization.command.DumpExecutionContext;
 import org.ccci.gto.authorization.command.Login;
+import org.ccci.gto.authorization.command.RestrictNamespaces;
 import org.ccci.gto.authorization.exception.AlreadyProcessedException;
 import org.ccci.gto.authorization.exception.InvalidCommandException;
 import org.ccci.gto.authorization.exception.NullCommandException;
 import org.ccci.gto.authorization.exception.ProcessingException;
 import org.ccci.gto.authorization.object.Entity;
 import org.ccci.gto.authorization.object.Key;
+import org.ccci.gto.authorization.object.Namespace;
 import org.ccci.gto.authorization.object.Target;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -69,6 +72,24 @@ public class Commands {
         }
         // throw an invalid command exception
         catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands restrictNamespaces(final Namespace... namespaces) throws InvalidCommandException {
+        try {
+            // generate and add a new restrictNamespaces command
+            return this.addCommand(new RestrictNamespaces(namespaces));
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands restrictNamespaces(final Collection<Namespace> namespaces) throws InvalidCommandException {
+        try {
+            // generate and add a new restrictNamespaces command
+            return this.addCommand(new RestrictNamespaces(namespaces));
+        } catch (final Exception e) {
             throw new InvalidCommandException(e);
         }
     }

@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.ccci.gto.authorization.command.Check;
+import org.ccci.gto.authorization.command.DumpExecutionContext;
 import org.ccci.gto.authorization.command.Login;
 import org.ccci.gto.authorization.exception.AlreadyProcessedException;
 import org.ccci.gto.authorization.exception.InvalidCommandException;
@@ -68,6 +69,15 @@ public class Commands {
         }
         // throw an invalid command exception
         catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands dumpExecutionContext() throws InvalidCommandException {
+        try {
+            // generate and add a new dumpExecutionContext command
+            return this.addCommand(new DumpExecutionContext());
+        } catch (final Exception e) {
             throw new InvalidCommandException(e);
         }
     }

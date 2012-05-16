@@ -14,7 +14,7 @@ import org.w3c.dom.Element;
 public final class AddToRoles extends AbstractDoubleObjectsCommand<Target, Role> {
     final public String TYPE = "addToRoles";
 
-    protected AddToRoles(final Collection<Target> objects1, final Collection<Role> objects2) {
+    public AddToRoles(final Collection<Target> objects1, final Collection<Role> objects2) {
         super("targets", objects1, "roles", objects2);
     }
 

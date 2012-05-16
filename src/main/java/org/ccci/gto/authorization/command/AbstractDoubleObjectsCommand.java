@@ -16,7 +16,7 @@ public abstract class AbstractDoubleObjectsCommand<O1 extends AuthzObject, O2 ex
     final private String objectsXmlName;
     final private Collection<O2> objects;
 
-    protected AbstractDoubleObjectsCommand(final String objects1XmlName, final Collection<O1> objects1,
+    public AbstractDoubleObjectsCommand(final String objects1XmlName, final Collection<O1> objects1,
             final String objects2XmlName, final Collection<O2> objects2) {
         super(objects1XmlName, objects1);
 

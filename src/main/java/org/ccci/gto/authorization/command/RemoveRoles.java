@@ -9,19 +9,15 @@ import org.ccci.gto.authorization.object.Role;
 import org.ccci.gto.authorization.response.GenericResponse;
 import org.w3c.dom.Element;
 
-public final class AddRoles extends AbstractObjectsCommand<Role> {
-    public final static String TYPE = "addRoles";
+public final class RemoveRoles extends AbstractObjectsCommand<Role> {
+    final public static String TYPE = "removeRoles";
 
-    public AddRoles(final Role... roles) {
+    public RemoveRoles(final Role... roles) {
         super("roles", roles);
     }
 
-    public AddRoles(final Collection<Role> roles) {
+    public RemoveRoles(final Collection<Role> roles) {
         super("roles", roles);
-    }
-
-    public Collection<Role> getRoles() {
-        return this.getObjects();
     }
 
     @Override
@@ -29,9 +25,13 @@ public final class AddRoles extends AbstractObjectsCommand<Role> {
         return TYPE;
     }
 
+    public Collection<Role> getRoles() {
+        return this.getObjects();
+    }
+
     @Override
-    public GenericResponse<AddRoles> newResponse(final Element commandXml, final XPath xpathEngine)
+    public GenericResponse<RemoveRoles> newResponse(final Element commandXml, final XPath xpathEngine)
             throws InvalidXmlException {
-        return new GenericResponse<AddRoles>(this, commandXml, xpathEngine);
+        return new GenericResponse<RemoveRoles>(this, commandXml, xpathEngine);
     }
 }

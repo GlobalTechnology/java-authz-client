@@ -21,8 +21,8 @@ public final class Check extends AbstractCommand {
     private final Entity entity;
     private final List<Target> targets;
 
-    public Check(final Entity entity, final Target target) {
-        this(entity, Arrays.asList(target));
+    public Check(final Entity entity, final Target... targets) {
+        this(entity, Arrays.asList(targets));
     }
 
     public Check(final Entity entity, final List<Target> targets) {

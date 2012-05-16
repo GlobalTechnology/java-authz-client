@@ -5,7 +5,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public abstract class AbstractObject implements AuthzObject {
-    private final static int HASHSEED = 31;
     final private Namespace ns;
     final private String name;
 
@@ -69,10 +68,10 @@ public abstract class AbstractObject implements AuthzObject {
      */
     @Override
     public int hashCode() {
-	int hash = 1;
-	hash = HASHSEED * hash + this.name.toLowerCase().hashCode();
-	hash = HASHSEED * hash + ((this.ns == null) ? 0 : this.ns.hashCode());
-	return hash;
+        int result = super.hashCode();
+        result = 31 * result + (this.ns == null ? 0 : this.ns.hashCode());
+        result = 31 * result + (this.name == null ? 0 : this.name.toLowerCase().hashCode());
+        return result;
     }
 
     @Override

@@ -2,7 +2,6 @@ package org.ccci.gto.authorization.command;
 
 import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -12,25 +11,25 @@ import org.ccci.gto.authorization.exception.NullObjectException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public abstract class AbstractObjectsCommand<O extends AuthzObject> extends AbstractCommand {
+public abstract class AbstractDoubleObjectsCommand<O1 extends AuthzObject, O2 extends AuthzObject> extends
+        AbstractObjectsCommand<O1> {
     final private String objectsXmlName;
-    final private Collection<O> objects;
+    final private Collection<O2> objects;
 
-    protected AbstractObjectsCommand(final String objectsXmlName, final O... objects) {
-        this(objectsXmlName, Arrays.asList(objects));
-    }
+    protected AbstractDoubleObjectsCommand(final String objects1XmlName, final Collection<O1> objects1,
+            final String objects2XmlName, final Collection<O2> objects2) {
+        super(objects1XmlName, objects1);
 
-    protected AbstractObjectsCommand(final String objectsXmlName, final Collection<O> objects) {
-        for (final O object : objects) {
+        for (final O2 object : objects2) {
             if (object == null) {
                 throw new NullObjectException();
             }
         }
-        this.objectsXmlName = objectsXmlName;
-        this.objects = Collections.unmodifiableSet(new HashSet<O>(objects));
+        this.objectsXmlName = objects2XmlName;
+        this.objects = Collections.unmodifiableSet(new HashSet<O2>(objects2));
     }
 
-    protected final Collection<O> getObjects() {
+    protected final Collection<O2> getObjects2() {
         return this.objects;
     }
 

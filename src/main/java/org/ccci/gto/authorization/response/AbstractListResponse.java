@@ -24,6 +24,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public abstract class AbstractListResponse<T extends Command, O extends AuthzObject> extends AbstractResponse<T> {
+    private final Class<O> objectClass;
     private final Collection<O> objects;
 
     private enum ObjectType {
@@ -44,8 +45,10 @@ public abstract class AbstractListResponse<T extends Command, O extends AuthzObj
         OBJECTTYPEMAP = Collections.unmodifiableMap(types);
     }
 
-    public AbstractListResponse(final T command, final Integer code, final Collection<O> objects) {
+    public AbstractListResponse(final T command, final Integer code, final Class<O> objectClass,
+            final Collection<O> objects) {
         super(command, code);
+        this.objectClass = objectClass;
         if (objects == null || objects.size() == 0) {
             this.objects = Collections.emptyList();
         } else {
@@ -57,6 +60,7 @@ public abstract class AbstractListResponse<T extends Command, O extends AuthzObj
             final XPath xpathEngine)
             throws InvalidXmlException {
         super(command, commandXml, xpathEngine);
+        this.objectClass = objectClass;
 
         try {
             // extract the response node from the command
@@ -119,7 +123,19 @@ public abstract class AbstractListResponse<T extends Command, O extends AuthzObj
     /**
      * @return the objects
      */
+    @Override
     public Collection<O> getObjects() {
         return this.objects;
+    }
+
+    @Override
+    public Collection<Namespace> getNamespaces() {
+        if (Namespace.class.equals(objectClass)) {
+            @SuppressWarnings("unchecked")
+            final Collection<Namespace> namespaces = (Collection<Namespace>) this.getObjects();
+            return namespaces;
+        }
+
+        return super.getNamespaces();
     }
 }

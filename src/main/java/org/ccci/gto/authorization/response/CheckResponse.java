@@ -1,19 +1,18 @@
 package org.ccci.gto.authorization.response;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 
 import org.ccci.gto.authorization.command.Check;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
+import org.ccci.gto.authorization.object.Target;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public final class CheckResponse extends AbstractResponse<Check> {
-    private final List<Boolean> responses;
+    private final boolean[] responses;
 
     public CheckResponse(final Check command, final Element commandXml,
 	    final XPath xpathEngine) throws InvalidXmlException {
@@ -28,40 +27,56 @@ public final class CheckResponse extends AbstractResponse<Check> {
 		    "authz:target | authz:resource | authz:role", entityXml,
 		    XPathConstants.NODESET);
 
-	    // generate the responses list
-            final ArrayList<Boolean> responses = new ArrayList<Boolean>(targetsNL.getLength());
+            // throw an exception if there aren't the correct number of
+            // responses
+            final int targets = this.getCommand().getTargets().size();
+            if (targetsNL.getLength() != targets) {
+                throw new InvalidXmlException("invalid number of authorization responses returned");
+            }
 
-	    // iterate over all found target xml nodes
-	    for (int x = 0; x < targetsNL.getLength(); x++) {
+	    // generate the responses list
+            this.responses = new boolean[targets];
+
+            // iterate over all targets
+            for (int x = 0; x < targets; x++) {
 		// extract the check response from the target xml
 		final Element targetXml = (Element) targetsNL.item(x);
-                responses.add(new Boolean(targetXml.getAttributeNS(null, "decision").equals("permit")));
+                this.responses[x] = "permit".equals(targetXml.getAttributeNS(null, "decision"));
 	    }
-
-            this.responses = Collections.unmodifiableList(responses);
+        } catch (final InvalidXmlException e) {
+            throw e;
 	} catch (final Exception e) {
 	    throw new InvalidXmlException(e);
 	}
-
-	// throw an error if there aren't enough responses
-	if (this.responses.size() != command.getTargets().size()) {
-            throw new InvalidXmlException("Invalid number of check command responses");
-	}
     }
 
-    public CheckResponse(final Check command, final Integer code, final List<Boolean> responses) {
+    public CheckResponse(final Check command, final Integer code, final boolean[] responses) {
 	super(command, code);
-	if (responses != null) {
-            this.responses = Collections.unmodifiableList(new ArrayList<Boolean>(responses));
-	} else {
-            this.responses = Collections.emptyList();
-	}
+        this.responses = Arrays.copyOf(responses, this.getCommand().getTargets().size());
     }
 
-    /**
-     * @return the responses
-     */
-    public List<Boolean> getResponses() {
-        return this.responses;
+    @Override
+    public boolean isAuthorized(int index) {
+        if (index >= 0 && index < this.responses.length) {
+            return this.responses[index];
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean isAuthorized(final Target target) {
+        return this.isAuthorized(this.getCommand().getTargets().indexOf(target));
+    }
+
+    @Override
+    public boolean areAllAuthorized() {
+        for (final boolean authorized : this.responses) {
+            if (!authorized) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

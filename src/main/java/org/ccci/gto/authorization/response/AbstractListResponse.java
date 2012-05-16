@@ -123,7 +123,6 @@ public abstract class AbstractListResponse<T extends Command, O extends AuthzObj
     /**
      * @return the objects
      */
-    @Override
     public Collection<O> getObjects() {
         return this.objects;
     }

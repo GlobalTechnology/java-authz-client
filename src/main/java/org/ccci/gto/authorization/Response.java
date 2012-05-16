@@ -19,7 +19,5 @@ public interface Response<T extends Command> {
 
     public boolean areAllAuthorized();
 
-    public Collection<? extends AuthzObject> getObjects();
-
     public Collection<Namespace> getNamespaces();
 }

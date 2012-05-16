@@ -5,7 +5,6 @@ import java.util.Collection;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 
-import org.ccci.gto.authorization.AuthzObject;
 import org.ccci.gto.authorization.Command;
 import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
@@ -50,11 +49,6 @@ public abstract class AbstractResponse<T extends Command> implements Response<T>
     @Override
     public T getCommand() {
 	return this.command;
-    }
-
-    @Override
-    public Collection<? extends AuthzObject> getObjects() {
-        throw new UnsupportedMethodException("getObjects is not supported by " + this.getClass());
     }
 
     @Override

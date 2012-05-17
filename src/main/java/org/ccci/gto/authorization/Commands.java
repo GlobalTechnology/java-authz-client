@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.ccci.gto.authorization.command.AddPermissions;
 import org.ccci.gto.authorization.command.AddResources;
 import org.ccci.gto.authorization.command.AddRoles;
 import org.ccci.gto.authorization.command.AddToRoles;
@@ -127,6 +128,16 @@ public class Commands {
     }
 
     /** Authorization Commands */
+
+    public Commands addPermissions(final Collection<Entity> entities, final Collection<Target> targets)
+            throws InvalidCommandException {
+        try {
+            // generate and add a new addPermissions command
+            return this.addCommand(new AddPermissions(entities, targets));
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
 
     public Commands addResources(final Resource... resources) throws InvalidCommandException {
         try {

@@ -151,12 +151,7 @@ public class Commands {
     }
 
     public Commands addResources(final Resource... resources) throws InvalidCommandException {
-        try {
-            // generate and add a new addResources command
-            return this.addCommand(new AddResources(Arrays.asList(resources)));
-        } catch (final Exception e) {
-            throw new InvalidCommandException(e);
-        }
+        return this.addResources(Arrays.asList(resources));
     }
 
     public Commands addRoles(final Collection<Role> roles) throws InvalidCommandException {
@@ -169,12 +164,7 @@ public class Commands {
     }
 
     public Commands addRoles(final Role... roles) throws InvalidCommandException {
-        try {
-            // generate and add a new addRoles command
-            return this.addCommand(new AddRoles(Arrays.asList(roles)));
-        } catch (final Exception e) {
-            throw new InvalidCommandException(e);
-        }
+        return this.addRoles(Arrays.asList(roles));
     }
 
     public Commands addToRoles(final Collection<Target> targets, final Collection<Role> roles)
@@ -247,12 +237,7 @@ public class Commands {
     }
 
     public Commands removeResources(final Resource... resources) throws InvalidCommandException {
-        try {
-            // generate and add a new removeResources command
-            return this.addCommand(new RemoveResources(Arrays.asList(resources)));
-        } catch (final Exception e) {
-            throw new InvalidCommandException(e);
-        }
+        return this.removeResources(Arrays.asList(resources));
     }
 
     public Commands removeRoles(final Collection<Role> roles) throws InvalidCommandException {
@@ -265,12 +250,7 @@ public class Commands {
     }
 
     public Commands removeRoles(final Role... roles) throws InvalidCommandException {
-        try {
-            // generate and add a new removeRoles command
-            return this.addCommand(new RemoveRoles(Arrays.asList(roles)));
-        } catch (final Exception e) {
-            throw new InvalidCommandException(e);
-        }
+        return this.removeRoles(Arrays.asList(roles));
     }
 
     public Commands restrictNamespaces(final Collection<Namespace> namespaces) throws InvalidCommandException {
@@ -283,11 +263,6 @@ public class Commands {
     }
 
     public Commands restrictNamespaces(final Namespace... namespaces) throws InvalidCommandException {
-        try {
-            // generate and add a new restrictNamespaces command
-            return this.addCommand(new RestrictNamespaces(Arrays.asList(namespaces)));
-        } catch (final Exception e) {
-            throw new InvalidCommandException(e);
-        }
+        return this.restrictNamespaces(Arrays.asList(namespaces));
     }
 }

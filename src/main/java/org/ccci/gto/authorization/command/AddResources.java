@@ -13,11 +13,11 @@ public final class AddResources extends AbstractObjectsCommand<Resource> {
     final public String TYPE = "addResources";
 
     public AddResources(final Resource... resources) {
-        super("resources", resources);
+        super(resources);
     }
 
     public AddResources(final Collection<Resource> resources) {
-        super("resources", resources);
+        super(resources);
     }
 
     public Collection<Resource> getResources() {
@@ -33,5 +33,10 @@ public final class AddResources extends AbstractObjectsCommand<Resource> {
     public GenericResponse<AddResources> newResponse(final Element commandXml, final XPath xpathEngine)
             throws InvalidXmlException {
         return new GenericResponse<AddResources>(this, commandXml, xpathEngine);
+    }
+
+    @Override
+    protected String getObjectsXmlGroupName() {
+        return "resources";
     }
 }

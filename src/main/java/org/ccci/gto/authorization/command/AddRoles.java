@@ -13,11 +13,11 @@ public final class AddRoles extends AbstractObjectsCommand<Role> {
     public final static String TYPE = "addRoles";
 
     public AddRoles(final Role... roles) {
-        super("roles", roles);
+        super(roles);
     }
 
     public AddRoles(final Collection<Role> roles) {
-        super("roles", roles);
+        super(roles);
     }
 
     public Collection<Role> getRoles() {
@@ -33,5 +33,10 @@ public final class AddRoles extends AbstractObjectsCommand<Role> {
     public GenericResponse<AddRoles> newResponse(final Element commandXml, final XPath xpathEngine)
             throws InvalidXmlException {
         return new GenericResponse<AddRoles>(this, commandXml, xpathEngine);
+    }
+
+    @Override
+    protected String getObjectsXmlGroupName() {
+        return "roles";
     }
 }

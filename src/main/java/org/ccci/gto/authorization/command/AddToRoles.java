@@ -14,8 +14,8 @@ import org.w3c.dom.Element;
 public final class AddToRoles extends AbstractDoubleObjectsCommand<Target, Role> {
     final public String TYPE = "addToRoles";
 
-    public AddToRoles(final Collection<Target> objects1, final Collection<Role> objects2) {
-        super("targets", objects1, "roles", objects2);
+    public AddToRoles(final Collection<Target> targets, final Collection<Role> roles) {
+        super(targets, roles);
     }
 
     @Override
@@ -35,5 +35,15 @@ public final class AddToRoles extends AbstractDoubleObjectsCommand<Target, Role>
     public Response<AddToRoles> newResponse(final Element commandXml, final XPath xpathEngine)
             throws InvalidXmlException {
         return new GenericResponse<AddToRoles>(this, commandXml, xpathEngine);
+    }
+
+    @Override
+    protected String getObjectsXmlGroupName() {
+        return "targets";
+    }
+
+    @Override
+    protected String getObjectsXmlGroupName2() {
+        return "roles";
     }
 }

@@ -13,11 +13,11 @@ public final class RestrictNamespaces extends AbstractObjectsCommand<Namespace> 
     public final static String TYPE = "restrictNamespaces";
 
     public RestrictNamespaces(final Namespace... namespaces) {
-        super("namespaces", namespaces);
+        super(namespaces);
     }
 
     public RestrictNamespaces(final Collection<Namespace> namespaces) {
-        super("namespaces", namespaces);
+        super(namespaces);
     }
 
     protected Collection<Namespace> getNamespaces() {
@@ -33,5 +33,10 @@ public final class RestrictNamespaces extends AbstractObjectsCommand<Namespace> 
     public GenericResponse<RestrictNamespaces> newResponse(final Element commandXml, final XPath xpathEngine)
             throws InvalidXmlException {
         return new GenericResponse<RestrictNamespaces>(this, commandXml, xpathEngine);
+    }
+
+    @Override
+    protected String getObjectsXmlGroupName() {
+        return "namespaces";
     }
 }

@@ -13,8 +13,8 @@ import org.w3c.dom.Element;
 public final class AddPermissions extends AbstractDoubleObjectsCommand<Entity, Target> {
     final public static String TYPE = "addPermissions";
 
-    public AddPermissions(final Collection<Entity> objects1, final Collection<Target> objects2) {
-        super("entities", objects1, "targets", objects2);
+    public AddPermissions(final Collection<Entity> entities, final Collection<Target> targets) {
+        super(entities, targets);
     }
 
     public Collection<Entity> getEntities() {
@@ -34,5 +34,15 @@ public final class AddPermissions extends AbstractDoubleObjectsCommand<Entity, T
     public GenericResponse<AddPermissions> newResponse(Element commandXml, XPath xpathEngine)
             throws InvalidXmlException {
         return new GenericResponse<AddPermissions>(this, commandXml, xpathEngine);
+    }
+
+    @Override
+    protected String getObjectsXmlGroupName() {
+        return "entities";
+    }
+
+    @Override
+    protected String getObjectsXmlGroupName2() {
+        return "targets";
     }
 }

@@ -13,11 +13,11 @@ public final class RemoveRoles extends AbstractObjectsCommand<Role> {
     final public static String TYPE = "removeRoles";
 
     public RemoveRoles(final Role... roles) {
-        super("roles", roles);
+        super(roles);
     }
 
     public RemoveRoles(final Collection<Role> roles) {
-        super("roles", roles);
+        super(roles);
     }
 
     @Override
@@ -33,5 +33,10 @@ public final class RemoveRoles extends AbstractObjectsCommand<Role> {
     public GenericResponse<RemoveRoles> newResponse(final Element commandXml, final XPath xpathEngine)
             throws InvalidXmlException {
         return new GenericResponse<RemoveRoles>(this, commandXml, xpathEngine);
+    }
+
+    @Override
+    protected String getObjectsXmlGroupName() {
+        return "roles";
     }
 }

@@ -13,22 +13,22 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public abstract class AbstractObjectsCommand<O extends AuthzObject> extends AbstractCommand {
-    final private String objectsXmlName;
     final private Collection<O> objects;
 
-    protected AbstractObjectsCommand(final String objectsXmlName, final O... objects) {
-        this(objectsXmlName, Arrays.asList(objects));
+    protected AbstractObjectsCommand(final O... objects) {
+        this(Arrays.asList(objects));
     }
 
-    protected AbstractObjectsCommand(final String objectsXmlName, final Collection<O> objects) {
+    protected AbstractObjectsCommand(final Collection<O> objects) {
         for (final O object : objects) {
             if (object == null) {
                 throw new NullObjectException();
             }
         }
-        this.objectsXmlName = objectsXmlName;
         this.objects = Collections.unmodifiableSet(new HashSet<O>(objects));
     }
+
+    protected abstract String getObjectsXmlGroupName();
 
     protected final Collection<O> getObjects() {
         return this.objects;
@@ -39,7 +39,7 @@ public abstract class AbstractObjectsCommand<O extends AuthzObject> extends Abst
         final Element commandXml = super.toXml(doc);
 
         // generate xml for objects
-        final Element objectsXml = doc.createElementNS(XMLNS_AUTHZ, this.objectsXmlName);
+        final Element objectsXml = doc.createElementNS(XMLNS_AUTHZ, this.getObjectsXmlGroupName());
         for (final AuthzObject object : this.objects) {
             objectsXml.appendChild(object.toXml(doc));
         }

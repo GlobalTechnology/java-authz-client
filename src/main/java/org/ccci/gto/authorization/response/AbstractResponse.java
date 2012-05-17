@@ -9,6 +9,7 @@ import org.ccci.gto.authorization.Command;
 import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.exception.UnsupportedMethodException;
+import org.ccci.gto.authorization.object.Entity;
 import org.ccci.gto.authorization.object.Namespace;
 import org.ccci.gto.authorization.object.Target;
 import org.w3c.dom.Element;
@@ -52,11 +53,6 @@ public abstract class AbstractResponse<T extends Command> implements Response<T>
     }
 
     @Override
-    public Collection<Namespace> getNamespaces() {
-        throw new UnsupportedMethodException("getNamespaces is not supported by " + this.getClass());
-    }
-
-    @Override
     public boolean isAuthorized(int index) {
         throw new UnsupportedMethodException("isAuthorized is not supported by " + this.getClass());
     }
@@ -69,5 +65,15 @@ public abstract class AbstractResponse<T extends Command> implements Response<T>
     @Override
     public boolean areAllAuthorized() {
         throw new UnsupportedMethodException("areAllAuthorized is not supported by " + this.getClass());
+    }
+
+    @Override
+    public Collection<Namespace> getNamespaces() {
+        throw new UnsupportedMethodException("getNamespaces is not supported by " + this.getClass());
+    }
+
+    @Override
+    public Collection<Entity> getEntities() {
+        throw new UnsupportedMethodException("getEntities is not supported by " + this.getClass());
     }
 }

@@ -57,8 +57,7 @@ public abstract class AbstractListResponse<T extends Command, O extends AuthzObj
     }
 
     public AbstractListResponse(final T command, final Class<O> objectClass, final Element commandXml,
-            final XPath xpathEngine)
-            throws InvalidXmlException {
+            final XPath xpathEngine) throws InvalidXmlException {
         super(command, commandXml, xpathEngine);
         this.objectClass = objectClass;
 
@@ -129,12 +128,23 @@ public abstract class AbstractListResponse<T extends Command, O extends AuthzObj
 
     @Override
     public Collection<Namespace> getNamespaces() {
-        if (Namespace.class.equals(objectClass)) {
+        if (Namespace.class.equals(this.objectClass)) {
             @SuppressWarnings("unchecked")
             final Collection<Namespace> namespaces = (Collection<Namespace>) this.getObjects();
             return namespaces;
         }
 
         return super.getNamespaces();
+    }
+
+    @Override
+    public Collection<Entity> getEntities() {
+        if (Entity.class.equals(this.objectClass)) {
+            @SuppressWarnings("unchecked")
+            final Collection<Entity> entities = (Collection<Entity>) this.getObjects();
+            return entities;
+        }
+
+        return super.getEntities();
     }
 }

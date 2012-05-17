@@ -2,6 +2,7 @@ package org.ccci.gto.authorization;
 
 import java.util.Collection;
 
+import org.ccci.gto.authorization.object.Entity;
 import org.ccci.gto.authorization.object.Namespace;
 import org.ccci.gto.authorization.object.Target;
 
@@ -20,4 +21,6 @@ public interface Response<T extends Command> {
     public boolean areAllAuthorized();
 
     public Collection<Namespace> getNamespaces();
+
+    public Collection<Entity> getEntities();
 }

@@ -14,6 +14,7 @@ import org.ccci.gto.authorization.command.AddRoles;
 import org.ccci.gto.authorization.command.AddToRoles;
 import org.ccci.gto.authorization.command.Check;
 import org.ccci.gto.authorization.command.DumpExecutionContext;
+import org.ccci.gto.authorization.command.ListPermittedEntities;
 import org.ccci.gto.authorization.command.Login;
 import org.ccci.gto.authorization.command.RemoveResources;
 import org.ccci.gto.authorization.command.RemoveRoles;
@@ -196,18 +197,32 @@ public class Commands {
     }
 
     public Commands check(final Entity entity, final Target... targets) throws InvalidCommandException {
-        try {
-            // generate and add a new check command
-            return this.addCommand(new Check(entity, Arrays.asList(targets)));
-        } catch (final Exception e) {
-            throw new InvalidCommandException(e);
-        }
+        return this.check(entity, Arrays.asList(targets));
     }
 
     public Commands dumpExecutionContext() throws InvalidCommandException {
         try {
             // generate and add a new dumpExecutionContext command
             return this.addCommand(new DumpExecutionContext());
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands listPermittedEntities(final Collection<Target> targets) throws InvalidCommandException {
+        try {
+            // generate and add a new listPermittedEntities command
+            return this.addCommand(new ListPermittedEntities(targets));
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands listPermittedEntities(final Collection<Target> targets, final Collection<Namespace> namespaces)
+            throws InvalidCommandException {
+        try {
+            // generate and add a new listPermittedEntities command
+            return this.addCommand(new ListPermittedEntities(targets, namespaces));
         } catch (final Exception e) {
             throw new InvalidCommandException(e);
         }

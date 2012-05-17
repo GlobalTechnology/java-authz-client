@@ -16,13 +16,14 @@ public final class RestrictNamespaces extends AbstractObjectsCommand<Namespace> 
         super(namespaces);
     }
 
-    protected Collection<Namespace> getNamespaces() {
-        return this.getObjects();
-    }
-
     @Override
     public String type() {
         return TYPE;
+    }
+
+    @Override
+    public Collection<Namespace> getNamespaces() {
+        return this.getObjects();
     }
 
     @Override

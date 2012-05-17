@@ -23,10 +23,12 @@ public final class AddToRoles extends AbstractDoubleObjectsCommand<Target, Role>
         return TYPE;
     }
 
+    @Override
     public Collection<Target> getTargets() {
         return this.getObjects();
     }
 
+    @Override
     public Collection<Role> getRoles() {
         return this.getObjects2();
     }

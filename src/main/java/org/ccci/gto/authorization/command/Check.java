@@ -37,6 +37,7 @@ public final class Check extends AbstractCommand {
 
     }
 
+    @Override
     public String type() {
         return TYPE;
     }
@@ -44,6 +45,7 @@ public final class Check extends AbstractCommand {
     /**
      * @return the entity
      */
+    @Override
     public Entity getEntity() {
 	return this.entity;
     }
@@ -51,6 +53,7 @@ public final class Check extends AbstractCommand {
     /**
      * @return the targets
      */
+    @Override
     public List<Target> getTargets() {
         return this.targets;
     }

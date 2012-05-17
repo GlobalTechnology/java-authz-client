@@ -29,6 +29,16 @@ public final class ListPermittedEntities extends AbstractDoubleObjectsCommand<Ta
     }
 
     @Override
+    public Collection<Target> getTargets() {
+        return this.getObjects();
+    }
+
+    @Override
+    public Collection<Namespace> getNamespaces() {
+        return this.getObjects2();
+    }
+
+    @Override
     public GenericListResponse<ListPermittedEntities, Entity> newResponse(final Element commandXml,
             final XPath xpathEngine) throws InvalidXmlException {
         return new GenericListResponse<ListPermittedEntities, Entity>(this, Entity.class, commandXml, xpathEngine);

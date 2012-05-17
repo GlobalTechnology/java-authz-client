@@ -21,6 +21,7 @@ public final class RemoveRoles extends AbstractObjectsCommand<Role> {
         return TYPE;
     }
 
+    @Override
     public Collection<Role> getRoles() {
         return this.getObjects();
     }

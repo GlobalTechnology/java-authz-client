@@ -23,8 +23,14 @@ public final class Login extends AbstractCommand {
         }
     }
 
+    @Override
     public String type() {
         return TYPE;
+    }
+
+    @Override
+    public Key getKey() {
+        return this.key;
     }
 
     @Override

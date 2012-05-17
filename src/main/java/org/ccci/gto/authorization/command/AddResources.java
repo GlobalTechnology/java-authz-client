@@ -16,13 +16,14 @@ public final class AddResources extends AbstractObjectsCommand<Resource> {
         super(resources);
     }
 
-    public Collection<Resource> getResources() {
-        return this.getObjects();
-    }
-
     @Override
     public String type() {
         return TYPE;
+    }
+
+    @Override
+    public Collection<Resource> getResources() {
+        return this.getObjects();
     }
 
     @Override

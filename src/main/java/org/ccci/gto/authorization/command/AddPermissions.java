@@ -17,17 +17,19 @@ public final class AddPermissions extends AbstractDoubleObjectsCommand<Entity, T
         super(entities, targets);
     }
 
+    @Override
+    public String type() {
+        return TYPE;
+    }
+
+    @Override
     public Collection<Entity> getEntities() {
         return this.getObjects();
     }
 
+    @Override
     public Collection<Target> getTargets() {
         return this.getObjects2();
-    }
-
-    @Override
-    public String type() {
-        return TYPE;
     }
 
     @Override

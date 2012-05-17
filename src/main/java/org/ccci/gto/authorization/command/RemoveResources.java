@@ -21,6 +21,7 @@ public final class RemoveResources extends AbstractObjectsCommand<Resource> {
         return TYPE;
     }
 
+    @Override
     public Collection<Resource> getResources() {
         return this.getObjects();
     }

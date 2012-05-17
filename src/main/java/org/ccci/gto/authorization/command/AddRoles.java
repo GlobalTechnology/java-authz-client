@@ -16,13 +16,14 @@ public final class AddRoles extends AbstractObjectsCommand<Role> {
         super(roles);
     }
 
-    public Collection<Role> getRoles() {
-        return this.getObjects();
-    }
-
     @Override
     public String type() {
         return TYPE;
+    }
+
+    @Override
+    public Collection<Role> getRoles() {
+        return this.getObjects();
     }
 
     @Override

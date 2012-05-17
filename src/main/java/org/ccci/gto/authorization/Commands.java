@@ -16,6 +16,7 @@ import org.ccci.gto.authorization.command.Check;
 import org.ccci.gto.authorization.command.DumpExecutionContext;
 import org.ccci.gto.authorization.command.ListPermittedEntities;
 import org.ccci.gto.authorization.command.Login;
+import org.ccci.gto.authorization.command.RemovePermissions;
 import org.ccci.gto.authorization.command.RemoveResources;
 import org.ccci.gto.authorization.command.RemoveRoles;
 import org.ccci.gto.authorization.command.RestrictNamespaces;
@@ -222,6 +223,16 @@ public class Commands {
         try {
             // generate and add a new login command
             return this.addCommand(new Login(key));
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands removePermissions(final Collection<Entity> entities, final Collection<Target> targets)
+            throws InvalidCommandException {
+        try {
+            // generate and add a new removePermissions command
+            return this.addCommand(new RemovePermissions(entities, targets));
         } catch (final Exception e) {
             throw new InvalidCommandException(e);
         }

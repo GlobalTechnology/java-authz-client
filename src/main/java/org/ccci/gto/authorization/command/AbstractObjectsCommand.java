@@ -2,7 +2,6 @@ package org.ccci.gto.authorization.command;
 
 import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,10 +13,6 @@ import org.w3c.dom.Element;
 
 public abstract class AbstractObjectsCommand<O extends AuthzObject> extends AbstractCommand {
     final private Collection<O> objects;
-
-    protected AbstractObjectsCommand(final O... objects) {
-        this(Arrays.asList(objects));
-    }
 
     protected AbstractObjectsCommand(final Collection<O> objects) {
         for (final O object : objects) {

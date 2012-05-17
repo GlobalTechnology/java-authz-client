@@ -1,7 +1,6 @@
 package org.ccci.gto.authorization.command;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,10 +19,6 @@ public final class Check extends AbstractCommand {
     public final static String TYPE = "check";
     private final Entity entity;
     private final List<Target> targets;
-
-    public Check(final Entity entity, final Target... targets) {
-        this(entity, Arrays.asList(targets));
-    }
 
     public Check(final Entity entity, final List<Target> targets) {
         this.entity = entity;

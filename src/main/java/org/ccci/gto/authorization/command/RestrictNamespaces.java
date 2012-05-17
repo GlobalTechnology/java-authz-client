@@ -12,10 +12,6 @@ import org.w3c.dom.Element;
 public final class RestrictNamespaces extends AbstractObjectsCommand<Namespace> {
     public final static String TYPE = "restrictNamespaces";
 
-    public RestrictNamespaces(final Namespace... namespaces) {
-        super(namespaces);
-    }
-
     public RestrictNamespaces(final Collection<Namespace> namespaces) {
         super(namespaces);
     }

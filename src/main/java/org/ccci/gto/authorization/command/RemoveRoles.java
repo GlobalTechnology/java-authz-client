@@ -12,10 +12,6 @@ import org.w3c.dom.Element;
 public final class RemoveRoles extends AbstractObjectsCommand<Role> {
     final public static String TYPE = "removeRoles";
 
-    public RemoveRoles(final Role... roles) {
-        super(roles);
-    }
-
     public RemoveRoles(final Collection<Role> roles) {
         super(roles);
     }

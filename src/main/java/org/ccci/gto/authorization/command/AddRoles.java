@@ -12,10 +12,6 @@ import org.w3c.dom.Element;
 public final class AddRoles extends AbstractObjectsCommand<Role> {
     public final static String TYPE = "addRoles";
 
-    public AddRoles(final Role... roles) {
-        super(roles);
-    }
-
     public AddRoles(final Collection<Role> roles) {
         super(roles);
     }

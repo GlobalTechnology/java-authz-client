@@ -55,6 +55,18 @@ public class Commands {
         return this;
     }
 
+    public Commands addCommands(final List<? extends Command> cmds) throws AlreadyProcessedException {
+        for (final Command cmd : cmds) {
+            this.addCommand(cmd);
+        }
+
+        return this;
+    }
+
+    public Commands addCommands(final Commands cmds) throws AlreadyProcessedException {
+        return this.addCommands(cmds.getCommands());
+    }
+
     /**
      * @return the commands
      */

@@ -1,10 +1,12 @@
 package org.ccci.gto.authorization.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.ccci.gto.authorization.Command;
 import org.ccci.gto.authorization.command.Login;
+import org.ccci.gto.authorization.command.RestrictNamespaces;
 import org.ccci.gto.authorization.object.Key;
 
 public class DefaultController extends AbstractController {
@@ -31,7 +33,6 @@ public class DefaultController extends AbstractController {
      */
     @Override
     protected List<? extends Command> preProcessCommands(final List<Command> commands) {
-
         // include the login command when requested
         if (loginKey != null) {
             boolean sendLogin = false;
@@ -58,6 +59,7 @@ public class DefaultController extends AbstractController {
             if (sendLogin) {
                 final List<Command> preCmds = new ArrayList<Command>();
                 preCmds.add(new Login(loginKey));
+                preCmds.add(new RestrictNamespaces(Arrays.asList(this.baseNamespace())));
                 preCmds.addAll(super.preProcessCommands(commands));
                 return preCmds;
             }
@@ -66,5 +68,4 @@ public class DefaultController extends AbstractController {
         // return the inherited pre-process commands
         return super.preProcessCommands(commands);
     }
-
 }

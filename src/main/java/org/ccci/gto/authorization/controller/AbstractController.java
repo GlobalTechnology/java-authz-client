@@ -11,9 +11,11 @@ import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.AlreadyProcessedException;
 import org.ccci.gto.authorization.exception.NullCommandsException;
 import org.ccci.gto.authorization.exception.ProcessingException;
+import org.ccci.gto.authorization.object.Namespace;
 
 public abstract class AbstractController implements Controller {
     private Processor processor;
+    private Namespace baseNamespace = Namespace.ROOT;
 
     /**
      * @param processor
@@ -30,6 +32,27 @@ public abstract class AbstractController implements Controller {
         return this.processor;
     }
 
+    /**
+     * @return the baseNamespace
+     */
+    @Override
+    public Namespace baseNamespace() {
+        return baseNamespace;
+    }
+
+    public void setBaseNamespace(final String baseNamespace) {
+        this.setBaseNamespace(new Namespace(baseNamespace));
+    }
+
+    /**
+     * @param baseNamespace
+     *            the baseNamespace to set
+     */
+    public void setBaseNamespace(final Namespace baseNamespace) {
+        this.baseNamespace = baseNamespace;
+    }
+
+    @Override
     public final Commands process(final Commands commands) throws ProcessingException {
         // throw an exception if a commands object isn't provided
         if (commands == null) {

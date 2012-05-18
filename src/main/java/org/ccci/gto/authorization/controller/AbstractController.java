@@ -21,12 +21,12 @@ public abstract class AbstractController implements Controller {
      * @param processor
      *            the processor to set
      */
-    public void setProcesser(final Processor processor) {
+    public void setProcessor(final Processor processor) {
         this.processor = processor;
     }
 
     /**
-     * @return the processer
+     * @return the processor
      */
     public Processor getProcessor() {
         return this.processor;

@@ -10,6 +10,7 @@ public final class Namespace implements AuthzObject {
     public final static Namespace ROOT = new Namespace("");
 
     final private String name;
+    final private String[] parts;
 
     public Namespace(final String name) {
         if (name == null) {
@@ -19,6 +20,12 @@ public final class Namespace implements AuthzObject {
             throw new IllegalArgumentException("Authorization Namespaces cannot contain |");
         } else {
             this.name = name;
+        }
+
+        if (this.name.length() == 0) {
+            this.parts = new String[0];
+        } else {
+            this.parts = this.name.split(":");
         }
     }
 
@@ -31,6 +38,21 @@ public final class Namespace implements AuthzObject {
      */
     public String getName() {
         return this.name;
+    }
+
+    public Namespace parent() {
+        if (this.parts.length == 0) {
+            return null;
+        }
+
+        final StringBuilder builder = new StringBuilder();
+        for (int x = 0; x < this.parts.length - 1; x++) {
+            if (x > 0) {
+                builder.append(":");
+            }
+            builder.append(this.parts[x]);
+        }
+        return new Namespace(builder.toString());
     }
 
     public Namespace descendant(final String descendant) {

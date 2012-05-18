@@ -21,4 +21,16 @@ public class NamespaceTest extends TestCase {
         assertEquals(child2, child1.descendant("child2:child3"));
         assertEquals(child2, base.descendant("child1").descendant("child2:child3"));
     }
+
+    public void testParent() {
+        final Namespace base = Namespace.ROOT;
+        final Namespace child1 = new Namespace("child1");
+        final Namespace child2 = new Namespace("child1:child2:child3");
+        assertNull(base.parent());
+        assertEquals(base, child1.parent());
+        assertNull(child1.parent().parent());
+        assertEquals(child1, child2.parent().parent());
+        assertEquals(base, child2.parent().parent().parent());
+        assertNull(child2.parent().parent().parent().parent());
+    }
 }

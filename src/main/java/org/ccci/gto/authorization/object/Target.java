@@ -6,32 +6,22 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class Target extends AbstractObject {
-    public Target(final Namespace ns, final String name) {
-	super(ns, name);
-
-	// throw an error if an invalid name was specified
-	if (name.contains("|")) {
-	    throw new IllegalArgumentException(
-		    "Authorization Target name contains a |");
-	} else if (name.length() <= 0) {
-	    throw new IllegalArgumentException(
-		    "Authorization Target names cannot be blank");
-	}
+    public Target(final String name) {
+        super(name);
     }
 
     public Target(final String ns, final String name) {
-	this(new Namespace(ns), name);
+        super(ns, name);
     }
 
     public Target(final Element object) {
         super(object);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.ccci.gcx.authorization.object.Base#toXml(org.w3c.dom.Document)
-     */
+    public Target(final Namespace ns, final String name) {
+        super(ns, name);
+    }
+
     @Override
     public Element toXml(final Document doc) {
         final Element e = doc.createElementNS(XMLNS_AUTHZ, "target");

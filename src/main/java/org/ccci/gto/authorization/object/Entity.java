@@ -6,32 +6,22 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class Entity extends AbstractObject {
-    public Entity(final Namespace ns, final String name) {
-	super(ns, name);
-
-	// throw an error if an invalid name was specified
-	if (name.contains("|")) {
-	    throw new IllegalArgumentException(
-		    "Authorization Entity name contains a |");
-	} else if (name.length() <= 0) {
-	    throw new IllegalArgumentException(
-		    "Authorization Entity names cannot be blank");
-	}
-    }
-
-    public Entity(final String ns, final String name) {
-	this(new Namespace(ns), name);
+    public Entity(final String name) {
+        super(name);
     }
 
     public Entity(final Element object) {
         super(object);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.ccci.gcx.authorization.object.Base#toXml(org.w3c.dom.Document)
-     */
+    public Entity(final String ns, final String name) {
+        super(ns, name);
+    }
+
+    public Entity(final Namespace ns, final String name) {
+	super(ns, name);
+    }
+
     @Override
     public Element toXml(final Document doc) {
         final Element e = doc.createElementNS(XMLNS_AUTHZ, "entity");

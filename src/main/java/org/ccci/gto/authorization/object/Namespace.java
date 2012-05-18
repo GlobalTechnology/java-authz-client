@@ -33,11 +33,16 @@ public final class Namespace implements AuthzObject {
         return this.name;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.ccci.gcx.authorization.object.Base#toXml(org.w3c.dom.Document)
-     */
+    public Namespace descendant(final String descendant) {
+        if (descendant == null || descendant.length() == 0) {
+            return this;
+        } else if (this.name.length() == 0) {
+            return new Namespace(descendant);
+        }
+
+        return new Namespace(this.name + ":" + descendant);
+    }
+
     @Override
     public Element toXml(final Document doc) {
         final Element e = doc.createElementNS(XMLNS_AUTHZ, "namespace");

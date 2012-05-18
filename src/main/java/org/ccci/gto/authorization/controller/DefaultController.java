@@ -10,6 +10,10 @@ import org.ccci.gto.authorization.object.Key;
 public class DefaultController extends AbstractController {
     private Key loginKey = null;
 
+    public void setLoginKey(final String key) {
+        this.setLoginKey(new Key(key));
+    }
+
     /**
      * @param key
      *            the key to use to automatically login with

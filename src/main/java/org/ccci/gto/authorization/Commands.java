@@ -144,8 +144,8 @@ public class Commands {
 
     /** Authorization Commands */
 
-    public Commands addPermissions(final Collection<Entity> entities, final Collection<Target> targets)
-            throws InvalidCommandException {
+    public Commands addPermissions(final Collection<? extends Entity> entities,
+            final Collection<? extends Target> targets) throws InvalidCommandException {
         try {
             // generate and add a new addPermissions command
             return this.addCommand(new AddPermissions(entities, targets));
@@ -154,7 +154,7 @@ public class Commands {
         }
     }
 
-    public Commands addResources(final Collection<Resource> resources) throws InvalidCommandException {
+    public Commands addResources(final Collection<? extends Resource> resources) throws InvalidCommandException {
         try {
             // generate and add a new addResources command
             return this.addCommand(new AddResources(resources));
@@ -167,7 +167,7 @@ public class Commands {
         return this.addResources(Arrays.asList(resources));
     }
 
-    public Commands addRoles(final Collection<Role> roles) throws InvalidCommandException {
+    public Commands addRoles(final Collection<? extends Role> roles) throws InvalidCommandException {
         try {
             // generate and add a new addRoles command
             return this.addCommand(new AddRoles(roles));
@@ -180,7 +180,7 @@ public class Commands {
         return this.addRoles(Arrays.asList(roles));
     }
 
-    public Commands addToRoles(final Collection<Target> targets, final Collection<Role> roles)
+    public Commands addToRoles(final Collection<? extends Target> targets, final Collection<? extends Role> roles)
             throws InvalidCommandException {
         try {
             // generate and add a new addToRoles command
@@ -190,7 +190,7 @@ public class Commands {
         }
     }
 
-    public Commands check(final Entity entity, final List<Target> targets) throws InvalidCommandException {
+    public Commands check(final Entity entity, final List<? extends Target> targets) throws InvalidCommandException {
         try {
             // generate and add a new check command
             return this.addCommand(new Check(entity, targets));
@@ -212,7 +212,7 @@ public class Commands {
         }
     }
 
-    public Commands listPermittedEntities(final Collection<Target> targets) throws InvalidCommandException {
+    public Commands listPermittedEntities(final Collection<? extends Target> targets) throws InvalidCommandException {
         try {
             // generate and add a new listPermittedEntities command
             return this.addCommand(new ListPermittedEntities(targets));
@@ -221,8 +221,8 @@ public class Commands {
         }
     }
 
-    public Commands listPermittedEntities(final Collection<Target> targets, final Collection<Namespace> namespaces)
-            throws InvalidCommandException {
+    public Commands listPermittedEntities(final Collection<? extends Target> targets,
+            final Collection<Namespace> namespaces) throws InvalidCommandException {
         try {
             // generate and add a new listPermittedEntities command
             return this.addCommand(new ListPermittedEntities(targets, namespaces));
@@ -240,8 +240,8 @@ public class Commands {
         }
     }
 
-    public Commands removePermissions(final Collection<Entity> entities, final Collection<Target> targets)
-            throws InvalidCommandException {
+    public Commands removePermissions(final Collection<? extends Entity> entities,
+            final Collection<? extends Target> targets) throws InvalidCommandException {
         try {
             // generate and add a new removePermissions command
             return this.addCommand(new RemovePermissions(entities, targets));
@@ -250,7 +250,7 @@ public class Commands {
         }
     }
 
-    public Commands removeResources(final Collection<Resource> resources) throws InvalidCommandException {
+    public Commands removeResources(final Collection<? extends Resource> resources) throws InvalidCommandException {
         try {
             // generate and add a new removeResources command
             return this.addCommand(new RemoveResources(resources));
@@ -263,7 +263,7 @@ public class Commands {
         return this.removeResources(Arrays.asList(resources));
     }
 
-    public Commands removeRoles(final Collection<Role> roles) throws InvalidCommandException {
+    public Commands removeRoles(final Collection<? extends Role> roles) throws InvalidCommandException {
         try {
             // generate and add a new removeRoles command
             return this.addCommand(new RemoveRoles(roles));

@@ -12,7 +12,7 @@ import org.w3c.dom.Element;
 public final class AddResources extends AbstractObjectsCommand<Resource> {
     final public String TYPE = "addResources";
 
-    public AddResources(final Collection<Resource> resources) {
+    public AddResources(final Collection<? extends Resource> resources) {
         super(resources);
     }
 

@@ -13,7 +13,7 @@ import org.w3c.dom.Element;
 public final class RemovePermissions extends AbstractDoubleObjectsCommand<Entity, Target> {
     public final static String TYPE = "removePermissions";
 
-    public RemovePermissions(final Collection<Entity> entities, final Collection<Target> targets) {
+    public RemovePermissions(final Collection<? extends Entity> entities, final Collection<? extends Target> targets) {
         super(entities, targets);
     }
 

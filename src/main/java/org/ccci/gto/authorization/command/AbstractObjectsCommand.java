@@ -14,7 +14,7 @@ import org.w3c.dom.Element;
 public abstract class AbstractObjectsCommand<O extends AuthzObject> extends AbstractCommand {
     final private Collection<O> objects;
 
-    protected AbstractObjectsCommand(final Collection<O> objects) {
+    protected AbstractObjectsCommand(final Collection<? extends O> objects) {
         for (final O object : objects) {
             if (object == null) {
                 throw new NullObjectException();

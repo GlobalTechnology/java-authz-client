@@ -15,11 +15,11 @@ import org.w3c.dom.Element;
 public final class ListPermittedEntities extends AbstractDoubleObjectsCommand<Target, Namespace> {
     public final static String TYPE = "listPermittedEntities";
 
-    public ListPermittedEntities(final Collection<Target> targets) {
+    public ListPermittedEntities(final Collection<? extends Target> targets) {
         this(targets, Arrays.asList(Namespace.ROOT));
     }
 
-    public ListPermittedEntities(final Collection<Target> targets, final Collection<Namespace> namespaces) {
+    public ListPermittedEntities(final Collection<? extends Target> targets, final Collection<Namespace> namespaces) {
         super(targets, namespaces);
     }
 

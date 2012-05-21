@@ -15,7 +15,7 @@ public abstract class AbstractDoubleObjectsCommand<O1 extends AuthzObject, O2 ex
         AbstractObjectsCommand<O1> {
     final private Collection<O2> objects;
 
-    public AbstractDoubleObjectsCommand(final Collection<O1> objects1, final Collection<O2> objects2) {
+    public AbstractDoubleObjectsCommand(final Collection<? extends O1> objects1, final Collection<? extends O2> objects2) {
         super(objects1);
 
         for (final O2 object : objects2) {

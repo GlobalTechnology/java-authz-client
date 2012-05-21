@@ -13,7 +13,7 @@ import org.w3c.dom.Element;
 public final class AddPermissions extends AbstractDoubleObjectsCommand<Entity, Target> {
     final public static String TYPE = "addPermissions";
 
-    public AddPermissions(final Collection<Entity> entities, final Collection<Target> targets) {
+    public AddPermissions(final Collection<? extends Entity> entities, final Collection<? extends Target> targets) {
         super(entities, targets);
     }
 

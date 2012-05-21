@@ -20,20 +20,20 @@ public final class Check extends AbstractCommand {
     private final Entity entity;
     private final List<Target> targets;
 
-    public Check(final Entity entity, final List<Target> targets) {
+    public Check(final Entity entity, final List<? extends Target> targets) {
         this.entity = entity;
         this.targets = Collections.unmodifiableList(new ArrayList<Target>(targets));
 
         // throw an error if an invalid entity was specified
         if (this.entity == null) {
-	    throw new NullEntityException();
-	}
-	// throw an error if there are missing targets in the specified List
+            throw new NullEntityException();
+        }
+        // throw an error if there are missing targets in the specified List
         for (final Target target : this.targets) {
             if (target == null) {
-		throw new NullTargetException();
-	    }
-	}
+                throw new NullTargetException();
+            }
+        }
 
     }
 
@@ -47,7 +47,7 @@ public final class Check extends AbstractCommand {
      */
     @Override
     public Entity getEntity() {
-	return this.entity;
+        return this.entity;
     }
 
     /**
@@ -58,29 +58,32 @@ public final class Check extends AbstractCommand {
         return this.targets;
     }
 
-    /* (non-Javadoc)
-     * @see org.ccci.gcx.authorization.Command#newResponse(org.w3c.dom.Element, javax.xml.xpath.XPath)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.ccci.gcx.authorization.Command#newResponse(org.w3c.dom.Element,
+     * javax.xml.xpath.XPath)
      */
     @Override
     public CheckResponse newResponse(final Element commandXml, final XPath xpathEngine) throws InvalidXmlException {
-	return new CheckResponse(this, commandXml, xpathEngine);
+        return new CheckResponse(this, commandXml, xpathEngine);
     }
 
     @Override
     public Element toXml(final Document doc) {
-	//generate base command
-	final Element command = super.toXml(doc);
+        // generate base command
+        final Element command = super.toXml(doc);
 
-	//attach the entity for this check command
-	final Element entity = this.entity.toXml(doc);
-	command.appendChild(entity);
+        // attach the entity for this check command
+        final Element entity = this.entity.toXml(doc);
+        command.appendChild(entity);
 
-	// iterate over targets list appending xml for each Target
+        // iterate over targets list appending xml for each Target
         for (final Target target : this.targets) {
             entity.appendChild(target.toXml(doc));
-	}
+        }
 
-	// return the generated authorization command xml
-	return command;
+        // return the generated authorization command xml
+        return command;
     }
 }

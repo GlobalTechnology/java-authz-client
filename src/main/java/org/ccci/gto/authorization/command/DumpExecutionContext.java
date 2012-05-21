@@ -15,7 +15,7 @@ public final class DumpExecutionContext extends AbstractCommand {
     }
 
     @Override
-    public DumpExecutionContextResponse newResponse(Element commandXml, XPath xpathEngine)
+    public DumpExecutionContextResponse newResponse(final Element commandXml, final XPath xpathEngine)
             throws InvalidXmlException {
         return new DumpExecutionContextResponse(this, commandXml, xpathEngine);
     }

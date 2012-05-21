@@ -12,7 +12,7 @@ import org.w3c.dom.Element;
 public final class RemoveResources extends AbstractObjectsCommand<Resource> {
     final public static String TYPE = "removeResources";
 
-    public RemoveResources(final Collection<Resource> resources) {
+    public RemoveResources(final Collection<? extends Resource> resources) {
         super(resources);
     }
 

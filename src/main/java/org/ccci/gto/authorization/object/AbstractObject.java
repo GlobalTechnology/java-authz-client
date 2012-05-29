@@ -1,15 +1,18 @@
 package org.ccci.gto.authorization.object;
 
 import org.ccci.gto.authorization.AuthzObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public abstract class AbstractObject implements AuthzObject {
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractObject.class);
     final private Namespace ns;
     final private String name;
 
     final static protected Namespace extractNamespace(final String name) {
-        final String[] parts = name.split("|", 2);
+        final String[] parts = name.split("\\|", 2);
         if (parts.length == 2) {
             return new Namespace(parts[0]);
         }
@@ -18,7 +21,7 @@ public abstract class AbstractObject implements AuthzObject {
     }
 
     final static protected String extractName(final String name) {
-        final String[] parts = name.split("|", 2);
+        final String[] parts = name.split("\\|", 2);
         if (parts.length == 2) {
             return parts[1];
         }
@@ -41,10 +44,13 @@ public abstract class AbstractObject implements AuthzObject {
     protected AbstractObject(final Namespace ns, final String name) {
         // throw an error if an invalid namespace or name is specified
         if (ns == null) {
+            LOG.debug("no namespace specified");
             throw new IllegalArgumentException("Authorization objects require a namespace to be specified");
         } else if (name == null || name.length() == 0) {
+            LOG.debug("no name specified");
             throw new IllegalArgumentException("Authorization objects require a name to be specified");
         } else if (name.contains("|")) {
+            LOG.debug("invalid character in name: {}", name);
             throw new IllegalArgumentException("Authorization object names cannot contain a |");
         }
 
@@ -72,7 +78,7 @@ public abstract class AbstractObject implements AuthzObject {
 	    return true;
         } else if (obj == null) {
 	    return false;
-        } else if (this.getClass().equals(obj.getClass())) {
+        } else if (!this.getClass().equals(obj.getClass())) {
 	    return false;
 	}
 

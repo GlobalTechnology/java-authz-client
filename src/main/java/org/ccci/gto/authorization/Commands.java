@@ -36,7 +36,7 @@ import org.ccci.gto.authorization.object.Target;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class Commands {
+public final class Commands {
     private final List<Command> commands = new ArrayList<Command>();
     private List<Response<? extends Command>> responses = null;
 
@@ -162,147 +162,188 @@ public class Commands {
     }
 
     public Commands addPermissions(final Collection<? extends Entity> entities,
-            final Collection<? extends Target> targets) throws InvalidCommandException {
+            final Collection<? extends Target> targets) throws AlreadyProcessedException, InvalidCommandException {
         try {
             // generate and add a new addPermissions command
             return this.addCommand(new AddPermissions(entities, targets));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
         } catch (final Exception e) {
             throw new InvalidCommandException(e);
         }
     }
 
-    public Commands addResources(final Collection<? extends Resource> resources) throws InvalidCommandException {
-        try {
-            // generate and add a new addResources command
-            return this.addCommand(new AddResources(resources));
-        } catch (final Exception e) {
-            throw new InvalidCommandException(e);
-        }
-    }
-
-    public Commands addResources(final Resource... resources) throws InvalidCommandException {
+    public Commands addResources(final Resource... resources) throws AlreadyProcessedException, InvalidCommandException {
         return this.addResources(Arrays.asList(resources));
     }
 
-    public Commands addRoles(final Collection<? extends Role> roles) throws InvalidCommandException {
+    public Commands addResources(final Collection<? extends Resource> resources) throws AlreadyProcessedException,
+            InvalidCommandException {
         try {
-            // generate and add a new addRoles command
-            return this.addCommand(new AddRoles(roles));
+            // generate and add a new addResources command
+            return this.addCommand(new AddResources(resources));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
         } catch (final Exception e) {
             throw new InvalidCommandException(e);
         }
     }
 
-    public Commands addRoles(final Role... roles) throws InvalidCommandException {
+    public Commands addRoles(final Role... roles) throws AlreadyProcessedException, InvalidCommandException {
         return this.addRoles(Arrays.asList(roles));
     }
 
+    public Commands addRoles(final Collection<? extends Role> roles) throws AlreadyProcessedException,
+            InvalidCommandException {
+        try {
+            // generate and add a new addRoles command
+            return this.addCommand(new AddRoles(roles));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
     public Commands addToRoles(final Collection<? extends Target> targets, final Collection<? extends Role> roles)
-            throws InvalidCommandException {
+            throws AlreadyProcessedException, InvalidCommandException {
         try {
             // generate and add a new addToRoles command
             return this.addCommand(new AddToRoles(targets, roles));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
         } catch (final Exception e) {
             throw new InvalidCommandException(e);
         }
     }
 
-    public Commands check(final Entity entity, final List<? extends Target> targets) throws InvalidCommandException {
-        try {
-            // generate and add a new check command
-            return this.addCommand(new Check(entity, targets));
-        } catch (final Exception e) {
-            throw new InvalidCommandException(e);
-        }
-    }
-
-    public Commands check(final Entity entity, final Target... targets) throws InvalidCommandException {
+    public Commands check(final Entity entity, final Target... targets) throws AlreadyProcessedException,
+            InvalidCommandException {
         return this.check(entity, Arrays.asList(targets));
     }
 
-    public Commands dumpExecutionContext() throws InvalidCommandException {
+    public Commands check(final Entity entity, final List<? extends Target> targets) throws AlreadyProcessedException,
+            InvalidCommandException {
         try {
-            // generate and add a new dumpExecutionContext command
-            return this.addCommand(new DumpExecutionContext());
+            // generate and add a new check command
+            return this.addCommand(new Check(entity, targets));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
         } catch (final Exception e) {
             throw new InvalidCommandException(e);
         }
     }
 
-    public Commands listPermittedEntities(final Collection<? extends Target> targets) throws InvalidCommandException {
+    public Commands dumpExecutionContext() throws AlreadyProcessedException, InvalidCommandException {
+        try {
+            // generate and add a new dumpExecutionContext command
+            return this.addCommand(new DumpExecutionContext());
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands listPermittedEntities(final Target... targets) throws AlreadyProcessedException,
+            InvalidCommandException {
+        return this.listPermittedEntities(Arrays.asList(targets));
+    }
+
+    public Commands listPermittedEntities(final Collection<? extends Target> targets) throws AlreadyProcessedException,
+            InvalidCommandException {
         try {
             // generate and add a new listPermittedEntities command
             return this.addCommand(new ListPermittedEntities(targets));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
         } catch (final Exception e) {
             throw new InvalidCommandException(e);
         }
     }
 
     public Commands listPermittedEntities(final Collection<? extends Target> targets,
-            final Collection<Namespace> namespaces) throws InvalidCommandException {
+            final Collection<Namespace> namespaces) throws AlreadyProcessedException, InvalidCommandException {
         try {
             // generate and add a new listPermittedEntities command
             return this.addCommand(new ListPermittedEntities(targets, namespaces));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
         } catch (final Exception e) {
             throw new InvalidCommandException(e);
         }
     }
 
-    public Commands login(final Key key) throws InvalidCommandException {
+    public Commands login(final Key key) throws AlreadyProcessedException, InvalidCommandException {
         try {
             // generate and add a new login command
             return this.addCommand(new Login(key));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
         } catch (final Exception e) {
             throw new InvalidCommandException(e);
         }
     }
 
     public Commands removePermissions(final Collection<? extends Entity> entities,
-            final Collection<? extends Target> targets) throws InvalidCommandException {
+            final Collection<? extends Target> targets) throws AlreadyProcessedException, InvalidCommandException {
         try {
             // generate and add a new removePermissions command
             return this.addCommand(new RemovePermissions(entities, targets));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
         } catch (final Exception e) {
             throw new InvalidCommandException(e);
         }
     }
 
-    public Commands removeResources(final Collection<? extends Resource> resources) throws InvalidCommandException {
-        try {
-            // generate and add a new removeResources command
-            return this.addCommand(new RemoveResources(resources));
-        } catch (final Exception e) {
-            throw new InvalidCommandException(e);
-        }
-    }
-
-    public Commands removeResources(final Resource... resources) throws InvalidCommandException {
+    public Commands removeResources(final Resource... resources) throws AlreadyProcessedException,
+            InvalidCommandException {
         return this.removeResources(Arrays.asList(resources));
     }
 
-    public Commands removeRoles(final Collection<? extends Role> roles) throws InvalidCommandException {
+    public Commands removeResources(final Collection<? extends Resource> resources) throws AlreadyProcessedException,
+            InvalidCommandException {
         try {
-            // generate and add a new removeRoles command
-            return this.addCommand(new RemoveRoles(roles));
+            // generate and add a new removeResources command
+            return this.addCommand(new RemoveResources(resources));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
         } catch (final Exception e) {
             throw new InvalidCommandException(e);
         }
     }
 
-    public Commands removeRoles(final Role... roles) throws InvalidCommandException {
+    public Commands removeRoles(final Role... roles) throws AlreadyProcessedException, InvalidCommandException {
         return this.removeRoles(Arrays.asList(roles));
     }
 
-    public Commands restrictNamespaces(final Collection<Namespace> namespaces) throws InvalidCommandException {
+    public Commands removeRoles(final Collection<? extends Role> roles) throws AlreadyProcessedException,
+            InvalidCommandException {
         try {
-            // generate and add a new restrictNamespaces command
-            return this.addCommand(new RestrictNamespaces(namespaces));
+            // generate and add a new removeRoles command
+            return this.addCommand(new RemoveRoles(roles));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
         } catch (final Exception e) {
             throw new InvalidCommandException(e);
         }
     }
 
-    public Commands restrictNamespaces(final Namespace... namespaces) throws InvalidCommandException {
+    public Commands restrictNamespaces(final Namespace... namespaces) throws AlreadyProcessedException,
+            InvalidCommandException {
         return this.restrictNamespaces(Arrays.asList(namespaces));
+    }
+
+    public Commands restrictNamespaces(final Collection<Namespace> namespaces) throws AlreadyProcessedException,
+            InvalidCommandException {
+        try {
+            // generate and add a new restrictNamespaces command
+            return this.addCommand(new RestrictNamespaces(namespaces));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
     }
 }

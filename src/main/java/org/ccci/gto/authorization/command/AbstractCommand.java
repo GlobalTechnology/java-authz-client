@@ -11,11 +11,13 @@ import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.exception.UnsupportedMethodException;
 import org.ccci.gto.authorization.object.Entity;
+import org.ccci.gto.authorization.object.Group;
 import org.ccci.gto.authorization.object.Key;
 import org.ccci.gto.authorization.object.Namespace;
 import org.ccci.gto.authorization.object.Resource;
 import org.ccci.gto.authorization.object.Role;
 import org.ccci.gto.authorization.object.Target;
+import org.ccci.gto.authorization.object.User;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -31,6 +33,16 @@ public abstract class AbstractCommand implements Command {
     @Override
     public Collection<Entity> getEntities() {
         throw new UnsupportedMethodException("getEntities is not supported by " + this.getClass());
+    }
+
+    @Override
+    public Collection<Group> getGroups() {
+        throw new UnsupportedMethodException("getGroups is not supported by " + this.getClass());
+    }
+
+    @Override
+    public Collection<User> getUsers() {
+        throw new UnsupportedMethodException("getUsers is not supported by " + this.getClass());
     }
 
     @Override

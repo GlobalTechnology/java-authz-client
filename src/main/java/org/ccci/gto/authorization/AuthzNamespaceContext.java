@@ -8,7 +8,7 @@ import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 
 public final class AuthzNamespaceContext implements NamespaceContext {
-    public final static AuthzNamespaceContext INSTANCE = new AuthzNamespaceContext();
+    public static final AuthzNamespaceContext INSTANCE = new AuthzNamespaceContext();
 
     public String getNamespaceURI(final String prefix) {
 	if (prefix == null) {

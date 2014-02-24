@@ -38,7 +38,7 @@ import org.w3c.dom.NodeList;
 public class RpcProcessor implements Processor {
     private static final Logger LOG = LoggerFactory.getLogger(RpcProcessor.class);
 
-    private final static Set<String> supportedProtocols = new HashSet<String>(Arrays.asList("http", "https"));
+    private static final Set<String> supportedProtocols = new HashSet<String>(Arrays.asList("http", "https"));
 
     private final URL authzUrl;
     private DocumentBuilder xmlDocumentBuilder;

@@ -16,7 +16,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public final class Check extends AbstractCommand {
-    public final static String TYPE = "check";
+    public static final String TYPE = "check";
     private final Entity entity;
     private final List<Target> targets;
 

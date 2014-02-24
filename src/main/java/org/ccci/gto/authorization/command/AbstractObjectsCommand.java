@@ -2,9 +2,11 @@ package org.ccci.gto.authorization.command;
 
 import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.ccci.gto.authorization.AuthzObject;
 import org.ccci.gto.authorization.exception.NullObjectException;
@@ -12,15 +14,18 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public abstract class AbstractObjectsCommand<O extends AuthzObject> extends AbstractCommand {
-    final private Collection<O> objects;
+    private final Set<O> objects;
+
+    @SafeVarargs
+    protected AbstractObjectsCommand(final O... objects) {
+        this(Arrays.asList(objects));
+    }
 
     protected AbstractObjectsCommand(final Collection<? extends O> objects) {
-        for (final O object : objects) {
-            if (object == null) {
-                throw new NullObjectException();
-            }
+        this.objects = Collections.unmodifiableSet(new HashSet<>(objects));
+        if(this.objects.contains(null)) {
+            throw new NullObjectException();
         }
-        this.objects = Collections.unmodifiableSet(new HashSet<O>(objects));
     }
 
     protected abstract String getObjectsXmlGroupName();

@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.ccci.gto.authorization.command.AddGroups;
 import org.ccci.gto.authorization.command.AddPermissions;
 import org.ccci.gto.authorization.command.AddResources;
 import org.ccci.gto.authorization.command.AddRoles;
@@ -26,6 +27,7 @@ import org.ccci.gto.authorization.exception.NotProcessedException;
 import org.ccci.gto.authorization.exception.NullCommandException;
 import org.ccci.gto.authorization.exception.ProcessingException;
 import org.ccci.gto.authorization.object.Entity;
+import org.ccci.gto.authorization.object.Group;
 import org.ccci.gto.authorization.object.Key;
 import org.ccci.gto.authorization.object.Namespace;
 import org.ccci.gto.authorization.object.Resource;
@@ -143,6 +145,21 @@ public class Commands {
     }
 
     /** Authorization Commands */
+
+    public Commands addGroups(final Group... groups) throws AlreadyProcessedException, InvalidCommandException {
+        return this.addGroups(Arrays.asList(groups));
+    }
+
+    public Commands addGroups(final Collection<? extends Group> groups) throws AlreadyProcessedException,
+            InvalidCommandException {
+        try {
+            return this.addCommand(new AddGroups(groups));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
 
     public Commands addPermissions(final Collection<? extends Entity> entities,
             final Collection<? extends Target> targets) throws InvalidCommandException {

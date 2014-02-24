@@ -6,10 +6,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class Entity extends AbstractObject {
-    public Entity(final String name) {
-        super(name);
-    }
-
     public Entity(final Element object) {
         super(object);
     }

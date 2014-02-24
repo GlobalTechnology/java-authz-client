@@ -6,10 +6,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public final class Role extends Target {
-    public Role(final String name) {
-        super(name);
-    }
-
     public Role(final String ns, final String name) {
         super(ns, name);
     }

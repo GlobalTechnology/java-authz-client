@@ -6,10 +6,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public final class Resource extends Target {
-    public Resource(final String name) {
-        super(name);
-    }
-
     public Resource(final String ns, final String name) {
         super(ns, name);
     }

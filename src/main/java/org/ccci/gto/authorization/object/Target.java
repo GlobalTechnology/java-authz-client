@@ -6,10 +6,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class Target extends AbstractObject {
-    public Target(final String name) {
-        super(name);
-    }
-
     public Target(final String ns, final String name) {
         super(ns, name);
     }

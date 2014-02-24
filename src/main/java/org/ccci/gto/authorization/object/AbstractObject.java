@@ -11,28 +11,6 @@ public abstract class AbstractObject implements AuthzObject {
     final private Namespace ns;
     final private String name;
 
-    final static protected Namespace extractNamespace(final String name) {
-        final String[] parts = name.split("\\|", 2);
-        if (parts.length == 2) {
-            return new Namespace(parts[0]);
-        }
-
-        return Namespace.ROOT;
-    }
-
-    final static protected String extractName(final String name) {
-        final String[] parts = name.split("\\|", 2);
-        if (parts.length == 2) {
-            return parts[1];
-        }
-
-        return name;
-    }
-
-    protected AbstractObject(final String name) {
-        this(extractNamespace(name), extractName(name));
-    }
-
     protected AbstractObject(final String ns, final String name) {
         this(new Namespace(ns), name);
     }

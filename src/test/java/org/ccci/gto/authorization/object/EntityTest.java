@@ -7,7 +7,6 @@ public class EntityTest extends TestCase {
         // valid entities
         {
             final Entity expected = new Entity(new Namespace("namespace"), "group");
-            assertEquals(expected, new Entity("namespace|group"));
             assertEquals(expected, new Entity("namespace", "group"));
         }
 
@@ -21,22 +20,12 @@ public class EntityTest extends TestCase {
 
             // no name
             try {
-                new Entity("");
-                fail();
-            } catch (final IllegalArgumentException e) {
-            }
-            try {
                 new Entity("namespace", "");
                 fail();
             } catch (final IllegalArgumentException e) {
             }
 
             // name containing |
-            try {
-                new Entity("a|b|c");
-                fail();
-            } catch (final IllegalArgumentException e) {
-            }
             try {
                 new Entity("", "b|c");
                 fail();

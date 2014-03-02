@@ -13,6 +13,7 @@ import org.ccci.gto.authorization.command.AddPermissions;
 import org.ccci.gto.authorization.command.AddResources;
 import org.ccci.gto.authorization.command.AddRoles;
 import org.ccci.gto.authorization.command.AddToRoles;
+import org.ccci.gto.authorization.command.AddUsers;
 import org.ccci.gto.authorization.command.Check;
 import org.ccci.gto.authorization.command.DumpExecutionContext;
 import org.ccci.gto.authorization.command.ListGroupMembers;
@@ -35,6 +36,7 @@ import org.ccci.gto.authorization.object.Namespace;
 import org.ccci.gto.authorization.object.Resource;
 import org.ccci.gto.authorization.object.Role;
 import org.ccci.gto.authorization.object.Target;
+import org.ccci.gto.authorization.object.User;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -212,6 +214,26 @@ public final class Commands {
         try {
             // generate and add a new addToRoles command
             return this.addCommand(new AddToRoles(targets, roles));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands addUsers(final User... users) throws AlreadyProcessedException, InvalidCommandException {
+        try {
+            return this.addCommand(new AddUsers(users));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands addUsers(final Collection<User> users) throws AlreadyProcessedException, InvalidCommandException {
+        try {
+            return this.addCommand(new AddUsers(users));
         } catch (final AlreadyProcessedException propagated) {
             throw propagated;
         } catch (final Exception e) {

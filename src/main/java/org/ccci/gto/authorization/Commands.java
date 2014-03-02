@@ -15,6 +15,7 @@ import org.ccci.gto.authorization.command.AddRoles;
 import org.ccci.gto.authorization.command.AddToRoles;
 import org.ccci.gto.authorization.command.Check;
 import org.ccci.gto.authorization.command.DumpExecutionContext;
+import org.ccci.gto.authorization.command.ListGroupMembers;
 import org.ccci.gto.authorization.command.ListPermittedEntities;
 import org.ccci.gto.authorization.command.Login;
 import org.ccci.gto.authorization.command.RemovePermissions;
@@ -238,6 +239,32 @@ public final class Commands {
         try {
             // generate and add a new dumpExecutionContext command
             return this.addCommand(new DumpExecutionContext());
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands listGroupMembers(final Group... groups) throws AlreadyProcessedException, InvalidCommandException {
+        return this.listGroupMembers(Arrays.asList(groups));
+    }
+
+    public Commands listGroupMembers(final Collection<Group> groups) throws AlreadyProcessedException,
+            InvalidCommandException {
+        try {
+            return this.addCommand(new ListGroupMembers(groups));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands listGroupMembers(final Collection<Group> groups, final Collection<Namespace> namespaces)
+            throws AlreadyProcessedException, InvalidCommandException {
+        try {
+            return this.addCommand(new ListGroupMembers(groups, namespaces));
         } catch (final AlreadyProcessedException propagated) {
             throw propagated;
         } catch (final Exception e) {

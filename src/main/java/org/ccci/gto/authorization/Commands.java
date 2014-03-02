@@ -12,6 +12,7 @@ import org.ccci.gto.authorization.command.AddGroups;
 import org.ccci.gto.authorization.command.AddPermissions;
 import org.ccci.gto.authorization.command.AddResources;
 import org.ccci.gto.authorization.command.AddRoles;
+import org.ccci.gto.authorization.command.AddToGroups;
 import org.ccci.gto.authorization.command.AddToRoles;
 import org.ccci.gto.authorization.command.AddUsers;
 import org.ccci.gto.authorization.command.Check;
@@ -209,7 +210,18 @@ public final class Commands {
         }
     }
 
-    public Commands addToRoles(final Collection<? extends Target> targets, final Collection<? extends Role> roles)
+    public Commands addToGroups(final Collection<? extends Entity> entities, final Collection<Group> groups)
+            throws AlreadyProcessedException, InvalidCommandException {
+        try {
+            return this.addCommand(new AddToGroups(entities, groups));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands addToRoles(final Collection<? extends Target> targets, final Collection<Role> roles)
             throws AlreadyProcessedException, InvalidCommandException {
         try {
             // generate and add a new addToRoles command

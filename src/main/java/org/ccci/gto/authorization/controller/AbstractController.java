@@ -53,6 +53,11 @@ public abstract class AbstractController implements Controller {
     }
 
     @Override
+    public final Commands newCommands() {
+        return new Commands();
+    }
+
+    @Override
     public final Commands process(final Commands commands) throws ProcessingException {
         // throw an exception if a commands object isn't provided
         if (commands == null) {

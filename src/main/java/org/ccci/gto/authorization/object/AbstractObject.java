@@ -69,7 +69,7 @@ public abstract class AbstractObject implements AuthzObject {
      */
     @Override
     public int hashCode() {
-        int result = super.hashCode();
+        int result = 0;
         result = 31 * result + this.ns.hashCode();
         result = 31 * result + this.name.toLowerCase().hashCode();
         return result;

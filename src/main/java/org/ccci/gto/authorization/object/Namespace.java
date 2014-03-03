@@ -100,7 +100,7 @@ public final class Namespace implements AuthzObject {
      */
     @Override
     public int hashCode() {
-        int result = super.hashCode();
+        int result = 0;
         result = result * 31 + this.name.toLowerCase().hashCode();
         return result;
     }

@@ -85,12 +85,12 @@ public final class Namespace implements AuthzObject {
             // the object being compared is null
             return false;
         } else if (!this.getClass().equals(obj.getClass())) {
-            // the objects are the same class
+            // the objects are not the same class
             return false;
         }
 
         // compare the actual name for both namespace objects
-        return ((Namespace) obj).getName().equalsIgnoreCase(this.getName());
+        return ((Namespace) obj).name.equalsIgnoreCase(this.name);
     }
 
     /*

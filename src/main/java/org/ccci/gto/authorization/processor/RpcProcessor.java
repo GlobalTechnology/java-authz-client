@@ -23,7 +23,6 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
-import org.ccci.gto.authorization.AuthzNamespaceContext;
 import org.ccci.gto.authorization.Command;
 import org.ccci.gto.authorization.Commands;
 import org.ccci.gto.authorization.Processor;

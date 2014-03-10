@@ -1,4 +1,4 @@
-package org.ccci.gto.authorization;
+package org.ccci.gto.authorization.processor;
 
 import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
 
@@ -9,6 +9,9 @@ import javax.xml.namespace.NamespaceContext;
 
 public final class AuthzNamespaceContext implements NamespaceContext {
     public static final AuthzNamespaceContext INSTANCE = new AuthzNamespaceContext();
+
+    private AuthzNamespaceContext() {
+    }
 
     public String getNamespaceURI(final String prefix) {
 	if (prefix == null) {

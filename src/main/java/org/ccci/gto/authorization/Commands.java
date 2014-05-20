@@ -12,6 +12,7 @@ import org.ccci.gto.authorization.command.AddUsers;
 import org.ccci.gto.authorization.command.Check;
 import org.ccci.gto.authorization.command.DumpExecutionContext;
 import org.ccci.gto.authorization.command.ListEntitiesWithAttributes;
+import org.ccci.gto.authorization.command.ListEntityAttributes;
 import org.ccci.gto.authorization.command.ListGroupMembers;
 import org.ccci.gto.authorization.command.ListPermittedEntities;
 import org.ccci.gto.authorization.command.Login;
@@ -298,6 +299,27 @@ public final class Commands {
             AlreadyProcessedException, InvalidCommandException {
         try {
             return this.addCommand(new ListEntitiesWithAttributes(attributes, namespaces));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands listEntityAttributes(final Entity... entities) throws AlreadyProcessedException,
+            InvalidCommandException {
+        return this.listEntityAttributes(Arrays.asList(entities));
+    }
+
+    public Commands listEntityAttributes(final Collection<Entity> entities) throws InvalidCommandException,
+            AlreadyProcessedException {
+        return this.listEntityAttributes(entities, Collections.singleton(Namespace.ROOT));
+    }
+
+    public Commands listEntityAttributes(final Collection<Entity> entities, final Collection<Namespace> namespaces)
+            throws AlreadyProcessedException, InvalidCommandException {
+        try {
+            return this.addCommand(new ListEntityAttributes(entities, namespaces));
         } catch (final AlreadyProcessedException propagated) {
             throw propagated;
         } catch (final Exception e) {

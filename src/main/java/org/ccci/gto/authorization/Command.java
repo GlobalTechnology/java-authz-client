@@ -1,10 +1,7 @@
 package org.ccci.gto.authorization;
 
-import java.util.Collection;
-
-import javax.xml.xpath.XPath;
-
 import org.ccci.gto.authorization.exception.InvalidXmlException;
+import org.ccci.gto.authorization.object.Attribute;
 import org.ccci.gto.authorization.object.Entity;
 import org.ccci.gto.authorization.object.Group;
 import org.ccci.gto.authorization.object.Key;
@@ -15,6 +12,9 @@ import org.ccci.gto.authorization.object.Target;
 import org.ccci.gto.authorization.object.User;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import javax.xml.xpath.XPath;
+import java.util.Collection;
 
 public interface Command {
     public String type();
@@ -32,6 +32,8 @@ public interface Command {
     public Collection<Resource> getResources();
 
     public Collection<Role> getRoles();
+
+    public Collection<Attribute> getAttributes();
 
     /**
      * This method only works for check authorization commands

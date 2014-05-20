@@ -2,14 +2,11 @@ package org.ccci.gto.authorization.command;
 
 import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
 
-import java.util.Collection;
-
-import javax.xml.xpath.XPath;
-
 import org.ccci.gto.authorization.Command;
 import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.exception.UnsupportedMethodException;
+import org.ccci.gto.authorization.object.Attribute;
 import org.ccci.gto.authorization.object.Entity;
 import org.ccci.gto.authorization.object.Group;
 import org.ccci.gto.authorization.object.Key;
@@ -20,6 +17,9 @@ import org.ccci.gto.authorization.object.Target;
 import org.ccci.gto.authorization.object.User;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import javax.xml.xpath.XPath;
+import java.util.Collection;
 
 public abstract class AbstractCommand implements Command {
     @Override
@@ -58,6 +58,11 @@ public abstract class AbstractCommand implements Command {
     @Override
     public Collection<Role> getRoles() {
         throw new UnsupportedMethodException("getRoles is not supported by " + this.getClass());
+    }
+
+    @Override
+    public Collection<Attribute> getAttributes() {
+        throw new UnsupportedMethodException("getAttributes is not supported by " + this.getClass());
     }
 
     @Override

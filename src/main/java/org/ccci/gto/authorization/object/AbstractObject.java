@@ -8,8 +8,8 @@ import org.w3c.dom.Element;
 
 public abstract class AbstractObject implements AuthzObject {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractObject.class);
-    final private Namespace ns;
-    final private String name;
+    private final Namespace ns;
+    private final String name;
 
     protected AbstractObject(final String ns, final String name) {
         this(new Namespace(ns), name);

@@ -22,6 +22,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 public abstract class AbstractListResponse<T extends Command, O extends AuthzObject> extends AbstractResponse<T> {
+    private static final long serialVersionUID = 3636182136215689048L;
+
     private final Class<O> objectClass;
     private final Collection<O> objects;
 

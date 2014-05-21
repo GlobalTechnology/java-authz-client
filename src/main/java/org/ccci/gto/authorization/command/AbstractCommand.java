@@ -22,6 +22,8 @@ import javax.xml.xpath.XPath;
 import java.util.Collection;
 
 public abstract class AbstractCommand implements Command {
+    private static final long serialVersionUID = -5777512713731777993L;
+
     @Override
     public abstract String type();
 

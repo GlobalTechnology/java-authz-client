@@ -1,12 +1,5 @@
 package org.ccci.gto.authorization.response;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-
 import org.ccci.gto.authorization.command.DumpExecutionContext;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.object.Namespace;
@@ -14,7 +7,15 @@ import org.ccci.gto.authorization.object.User;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+
 public final class DumpExecutionContextResponse extends AbstractResponse<DumpExecutionContext> {
+    private static final long serialVersionUID = 1580406235613356955L;
+
     private final User user;
     private final Collection<Namespace> namespaces;
 

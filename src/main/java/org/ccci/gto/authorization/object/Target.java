@@ -6,6 +6,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class Target extends AbstractObject {
+    private static final long serialVersionUID = 7375239099710053138L;
+
     public Target(final String ns, final String name) {
         super(ns, name);
     }

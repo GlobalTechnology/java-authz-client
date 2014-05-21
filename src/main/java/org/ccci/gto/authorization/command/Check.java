@@ -1,12 +1,5 @@
 package org.ccci.gto.authorization.command;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import javax.xml.xpath.XPath;
-
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.exception.NullEntityException;
 import org.ccci.gto.authorization.exception.NullTargetException;
@@ -16,8 +9,17 @@ import org.ccci.gto.authorization.response.CheckResponse;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import javax.xml.xpath.XPath;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public final class Check extends AbstractCommand {
-    public static final String TYPE = "check";
+    private static final long serialVersionUID = 5169366831242077925L;
+
+    private static final String TYPE = "check";
+
     private final Entity entity;
     private final List<Target> targets;
 

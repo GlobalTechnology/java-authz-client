@@ -2,12 +2,14 @@ package org.ccci.gto.authorization.object;
 
 import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
 
-import java.util.regex.Pattern;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.util.regex.Pattern;
+
 public final class User extends Entity {
+    private static final long serialVersionUID = -1343718424062395386L;
+
     private static final Pattern userRegex = Pattern
             .compile("^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$");
     public static final User DEFAULT = new User("DEFAULT");

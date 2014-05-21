@@ -13,7 +13,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-public class ListEntitiesWithAttributes extends AbstractDoubleObjectsCommand<Attribute, Namespace> {
+public final class ListEntitiesWithAttributes extends AbstractDoubleObjectsCommand<Attribute, Namespace> {
+    private static final long serialVersionUID = 6092355101843630120L;
+
     private static final String TYPE = "listEntitiesWithAttributes";
 
     public ListEntitiesWithAttributes(final Attribute... attributes) {

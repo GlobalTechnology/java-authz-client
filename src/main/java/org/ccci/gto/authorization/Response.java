@@ -1,12 +1,13 @@
 package org.ccci.gto.authorization;
 
-import java.util.Collection;
-
 import org.ccci.gto.authorization.object.Entity;
 import org.ccci.gto.authorization.object.Namespace;
 import org.ccci.gto.authorization.object.Target;
 
-public interface Response<T extends Command> {
+import java.io.Serializable;
+import java.util.Collection;
+
+public interface Response<T extends Command> extends Serializable {
     public T getCommand();
 
     /**

@@ -8,6 +8,8 @@ import org.w3c.dom.Element;
 import java.util.Objects;
 
 public final class Attribute extends AbstractObject {
+    private static final long serialVersionUID = -3420447292079113215L;
+
     private final String value;
 
     public Attribute(final Element object) {

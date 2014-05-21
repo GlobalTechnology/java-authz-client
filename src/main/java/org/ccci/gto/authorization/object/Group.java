@@ -5,11 +5,9 @@ import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-/**
- * @author frett
- *
- */
 public final class Group extends Entity {
+    private static final long serialVersionUID = -438891594305264232L;
+
     public Group(final String ns, final String name) {
         super(ns, name);
     }

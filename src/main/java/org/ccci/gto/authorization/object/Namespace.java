@@ -7,6 +7,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public final class Namespace implements AuthzObject {
+    private static final long serialVersionUID = 9203988204445976953L;
+
     public final static Namespace ROOT = new Namespace("");
 
     final private String name;

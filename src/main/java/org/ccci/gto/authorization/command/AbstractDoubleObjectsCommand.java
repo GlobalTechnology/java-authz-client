@@ -2,17 +2,19 @@ package org.ccci.gto.authorization.command;
 
 import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-
 import org.ccci.gto.authorization.AuthzObject;
 import org.ccci.gto.authorization.exception.NullObjectException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+
 public abstract class AbstractDoubleObjectsCommand<O1 extends AuthzObject, O2 extends AuthzObject> extends
         AbstractObjectsCommand<O1> {
+    private static final long serialVersionUID = 860732153403769801L;
+
     final private Collection<O2> objects;
 
     protected AbstractDoubleObjectsCommand(final Collection<? extends O1> objects1,

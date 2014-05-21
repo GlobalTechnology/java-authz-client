@@ -14,9 +14,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.xml.xpath.XPath;
+import java.io.Serializable;
 import java.util.Collection;
 
-public interface Command {
+public interface Command extends Serializable {
     public String type();
 
     public Collection<Namespace> getNamespaces();

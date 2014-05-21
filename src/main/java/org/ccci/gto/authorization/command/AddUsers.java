@@ -1,17 +1,18 @@
 package org.ccci.gto.authorization.command;
 
-import java.util.Collection;
-
-import javax.xml.xpath.XPath;
-
 import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.object.User;
 import org.ccci.gto.authorization.response.GenericResponse;
 import org.w3c.dom.Element;
 
+import javax.xml.xpath.XPath;
+import java.util.Collection;
+
 public final class AddUsers extends AbstractObjectsCommand<User> {
-    public static final String TYPE = "addUsers";
+    private static final long serialVersionUID = 6364319586036384123L;
+
+    private static final String TYPE = "addUsers";
 
     public AddUsers(final User... users) {
         super(users);

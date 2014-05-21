@@ -1,13 +1,15 @@
 package org.ccci.gto.authorization.command;
 
-import javax.xml.xpath.XPath;
-
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.response.DumpExecutionContextResponse;
 import org.w3c.dom.Element;
 
+import javax.xml.xpath.XPath;
+
 public final class DumpExecutionContext extends AbstractCommand {
-    public final static String TYPE = "dumpExecutionContext";
+    private static final long serialVersionUID = -1174490990581623045L;
+
+    private static final String TYPE = "dumpExecutionContext";
 
     @Override
     public String type() {

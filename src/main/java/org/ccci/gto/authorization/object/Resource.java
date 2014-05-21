@@ -6,6 +6,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public final class Resource extends Target {
+    private static final long serialVersionUID = -7909566464967037187L;
+
     public Resource(final String ns, final String name) {
         super(ns, name);
     }

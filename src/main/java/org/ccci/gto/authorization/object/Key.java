@@ -7,6 +7,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public final class Key implements AuthzObject {
+    private static final long serialVersionUID = -1879248473737290808L;
+
     final String key;
 
     public Key(final String key) {

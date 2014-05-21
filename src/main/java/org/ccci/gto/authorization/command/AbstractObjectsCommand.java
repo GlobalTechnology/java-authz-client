@@ -2,18 +2,20 @@ package org.ccci.gto.authorization.command;
 
 import static org.ccci.gto.authorization.Constants.XMLNS_AUTHZ;
 
+import org.ccci.gto.authorization.AuthzObject;
+import org.ccci.gto.authorization.exception.NullObjectException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.ccci.gto.authorization.AuthzObject;
-import org.ccci.gto.authorization.exception.NullObjectException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 public abstract class AbstractObjectsCommand<O extends AuthzObject> extends AbstractCommand {
+    private static final long serialVersionUID = -23161568779755255L;
+
     private final Set<O> objects;
 
     @SafeVarargs

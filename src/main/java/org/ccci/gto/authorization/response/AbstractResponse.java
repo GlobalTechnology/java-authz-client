@@ -1,10 +1,5 @@
 package org.ccci.gto.authorization.response;
 
-import java.util.Collection;
-
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-
 import org.ccci.gto.authorization.Command;
 import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
@@ -14,7 +9,13 @@ import org.ccci.gto.authorization.object.Namespace;
 import org.ccci.gto.authorization.object.Target;
 import org.w3c.dom.Element;
 
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import java.util.Collection;
+
 public abstract class AbstractResponse<T extends Command> implements Response<T> {
+    private static final long serialVersionUID = -5437888889574490757L;
+
     private final T command;
     private final Integer code;
 

@@ -1,7 +1,5 @@
 package org.ccci.gto.authorization.command;
 
-import javax.xml.xpath.XPath;
-
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.exception.NullKeyException;
 import org.ccci.gto.authorization.object.Key;
@@ -9,8 +7,12 @@ import org.ccci.gto.authorization.response.GenericResponse;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import javax.xml.xpath.XPath;
+
 public final class Login extends AbstractCommand {
-    public final static String TYPE = "login";
+    private static final long serialVersionUID = -1714673175196910952L;
+
+    private final static String TYPE = "login";
 
     private final Key key;
 

@@ -1,9 +1,5 @@
 package org.ccci.gto.authorization.command;
 
-import java.util.Collection;
-
-import javax.xml.xpath.XPath;
-
 import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.object.Role;
@@ -11,8 +7,13 @@ import org.ccci.gto.authorization.object.Target;
 import org.ccci.gto.authorization.response.GenericResponse;
 import org.w3c.dom.Element;
 
+import javax.xml.xpath.XPath;
+import java.util.Collection;
+
 public final class AddToRoles extends AbstractDoubleObjectsCommand<Target, Role> {
-    final public String TYPE = "addToRoles";
+    private static final long serialVersionUID = 4315367511812905961L;
+
+    private static final String TYPE = "addToRoles";
 
     public AddToRoles(final Collection<? extends Target> targets, final Collection<Role> roles) {
         super(targets, roles);

@@ -6,6 +6,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class Entity extends AbstractObject {
+    private static final long serialVersionUID = 4722613547870813431L;
+
     public Entity(final Element object) {
         super(object);
     }

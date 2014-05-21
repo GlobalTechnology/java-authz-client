@@ -38,13 +38,16 @@ import org.ccci.gto.authorization.object.User;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public final class Commands {
+public final class Commands implements Serializable {
+    private static final long serialVersionUID = -589071576194917897L;
+
     private final List<Command> commands = new ArrayList<Command>();
     private List<Response<? extends Command>> responses = null;
 

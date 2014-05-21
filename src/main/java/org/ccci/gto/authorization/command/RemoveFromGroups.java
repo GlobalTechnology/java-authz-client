@@ -1,9 +1,5 @@
 package org.ccci.gto.authorization.command;
 
-import java.util.Collection;
-
-import javax.xml.xpath.XPath;
-
 import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.object.Entity;
@@ -11,8 +7,13 @@ import org.ccci.gto.authorization.object.Group;
 import org.ccci.gto.authorization.response.GenericResponse;
 import org.w3c.dom.Element;
 
+import javax.xml.xpath.XPath;
+import java.util.Collection;
+
 public final class RemoveFromGroups extends AbstractDoubleObjectsCommand<Entity, Group> {
-    final public String TYPE = "removeFromGroups";
+    private static final long serialVersionUID = 1399714931329305348L;
+
+    private static final String TYPE = "removeFromGroups";
 
     public RemoveFromGroups(final Collection<? extends Entity> entities, final Collection<Group> groups) {
         super(entities, groups);

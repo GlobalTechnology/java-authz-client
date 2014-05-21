@@ -6,6 +6,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public final class Role extends Target {
+    private static final long serialVersionUID = -1242837948854820867L;
+
     public Role(final String ns, final String name) {
         super(ns, name);
     }

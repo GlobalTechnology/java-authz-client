@@ -1,17 +1,18 @@
 package org.ccci.gto.authorization.command;
 
-import java.util.Collection;
-
-import javax.xml.xpath.XPath;
-
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.object.Entity;
 import org.ccci.gto.authorization.object.Target;
 import org.ccci.gto.authorization.response.GenericResponse;
 import org.w3c.dom.Element;
 
+import javax.xml.xpath.XPath;
+import java.util.Collection;
+
 public final class RemovePermissions extends AbstractDoubleObjectsCommand<Entity, Target> {
-    public final static String TYPE = "removePermissions";
+    private static final long serialVersionUID = 6969811552062195193L;
+
+    private static final String TYPE = "removePermissions";
 
     public RemovePermissions(final Collection<? extends Entity> entities, final Collection<? extends Target> targets) {
         super(entities, targets);

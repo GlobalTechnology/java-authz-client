@@ -1,16 +1,17 @@
 package org.ccci.gto.authorization.command;
 
-import java.util.Collection;
-
-import javax.xml.xpath.XPath;
-
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.object.Resource;
 import org.ccci.gto.authorization.response.GenericResponse;
 import org.w3c.dom.Element;
 
+import javax.xml.xpath.XPath;
+import java.util.Collection;
+
 public final class RemoveResources extends AbstractObjectsCommand<Resource> {
-    final public static String TYPE = "removeResources";
+    private static final long serialVersionUID = 8755371915056441529L;
+
+    private static final String TYPE = "removeResources";
 
     public RemoveResources(final Collection<? extends Resource> resources) {
         super(resources);

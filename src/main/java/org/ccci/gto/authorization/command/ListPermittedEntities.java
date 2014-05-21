@@ -1,10 +1,5 @@
 package org.ccci.gto.authorization.command;
 
-import java.util.Arrays;
-import java.util.Collection;
-
-import javax.xml.xpath.XPath;
-
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.object.Entity;
 import org.ccci.gto.authorization.object.Namespace;
@@ -12,11 +7,17 @@ import org.ccci.gto.authorization.object.Target;
 import org.ccci.gto.authorization.response.GenericListResponse;
 import org.w3c.dom.Element;
 
+import javax.xml.xpath.XPath;
+import java.util.Collection;
+import java.util.Collections;
+
 public final class ListPermittedEntities extends AbstractDoubleObjectsCommand<Target, Namespace> {
-    public final static String TYPE = "listPermittedEntities";
+    private static final long serialVersionUID = 690704196560456273L;
+
+    private static final String TYPE = "listPermittedEntities";
 
     public ListPermittedEntities(final Collection<? extends Target> targets) {
-        this(targets, Arrays.asList(Namespace.ROOT));
+        this(targets, Collections.singleton(Namespace.ROOT));
     }
 
     public ListPermittedEntities(final Collection<? extends Target> targets, final Collection<Namespace> namespaces) {

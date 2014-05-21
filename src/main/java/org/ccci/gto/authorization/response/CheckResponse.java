@@ -1,17 +1,18 @@
 package org.ccci.gto.authorization.response;
 
-import java.util.Arrays;
-
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-
 import org.ccci.gto.authorization.command.Check;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.object.Target;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import java.util.Arrays;
+
 public final class CheckResponse extends AbstractResponse<Check> {
+    private static final long serialVersionUID = 7953290954064069883L;
+
     private final boolean[] responses;
 
     public CheckResponse(final Check command, final Element commandXml,

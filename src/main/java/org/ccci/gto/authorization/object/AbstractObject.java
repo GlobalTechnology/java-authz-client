@@ -7,6 +7,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public abstract class AbstractObject implements AuthzObject {
+    private static final long serialVersionUID = -5275209739562045571L;
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractObject.class);
     private final Namespace ns;
     private final String name;

@@ -1,17 +1,18 @@
 package org.ccci.gto.authorization.command;
 
-import java.util.Collection;
-
-import javax.xml.xpath.XPath;
-
 import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.object.Group;
 import org.ccci.gto.authorization.response.GenericResponse;
 import org.w3c.dom.Element;
 
+import javax.xml.xpath.XPath;
+import java.util.Collection;
+
 public final class AddGroups extends AbstractObjectsCommand<Group> {
-    public static final String TYPE = "addGroups";
+    private static final long serialVersionUID = -4115862949382898397L;
+
+    private static final String TYPE = "addGroups";
 
     public AddGroups(final Group... groups) {
         super(groups);

@@ -1,16 +1,17 @@
 package org.ccci.gto.authorization.command;
 
-import java.util.Collection;
-
-import javax.xml.xpath.XPath;
-
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.object.Role;
 import org.ccci.gto.authorization.response.GenericResponse;
 import org.w3c.dom.Element;
 
+import javax.xml.xpath.XPath;
+import java.util.Collection;
+
 public final class RemoveRoles extends AbstractObjectsCommand<Role> {
-    final public static String TYPE = "removeRoles";
+    private static final long serialVersionUID = 8716887591277927323L;
+
+    private static final String TYPE = "removeRoles";
 
     public RemoveRoles(final Collection<? extends Role> roles) {
         super(roles);

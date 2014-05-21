@@ -1,9 +1,5 @@
 package org.ccci.gto.authorization.command;
 
-import java.util.Collection;
-
-import javax.xml.xpath.XPath;
-
 import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.object.Entity;
@@ -11,8 +7,13 @@ import org.ccci.gto.authorization.object.Group;
 import org.ccci.gto.authorization.response.GenericResponse;
 import org.w3c.dom.Element;
 
+import javax.xml.xpath.XPath;
+import java.util.Collection;
+
 public final class AddToGroups extends AbstractDoubleObjectsCommand<Entity, Group> {
-    final public String TYPE = "addToGroups";
+    private static final long serialVersionUID = 4260273465866360785L;
+
+    private static final String TYPE = "addToGroups";
 
     public AddToGroups(final Collection<? extends Entity> entities, final Collection<Group> groups) {
         super(entities, groups);
@@ -36,7 +37,7 @@ public final class AddToGroups extends AbstractDoubleObjectsCommand<Entity, Grou
     @Override
     public Response<AddToGroups> newResponse(final Element commandXml, final XPath xpathEngine)
             throws InvalidXmlException {
-        return new GenericResponse<AddToGroups>(this, commandXml, xpathEngine);
+        return new GenericResponse<>(this, commandXml, xpathEngine);
     }
 
     @Override

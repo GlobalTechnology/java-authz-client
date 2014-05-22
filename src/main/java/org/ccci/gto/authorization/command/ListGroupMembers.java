@@ -11,6 +11,7 @@ import org.w3c.dom.Element;
 import javax.xml.xpath.XPath;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 public final class ListGroupMembers extends AbstractDoubleObjectsCommand<Group, Namespace> {
     private static final long serialVersionUID = 2859733961230082907L;
@@ -22,7 +23,7 @@ public final class ListGroupMembers extends AbstractDoubleObjectsCommand<Group, 
     }
 
     public ListGroupMembers(final Collection<Group> groups) {
-        this(groups, Arrays.asList(Namespace.ROOT));
+        this(groups, Collections.singleton(Namespace.ROOT));
     }
 
     public ListGroupMembers(final Collection<Group> groups, final Collection<Namespace> namespaces) {

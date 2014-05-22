@@ -1,5 +1,6 @@
 package org.ccci.gto.authorization;
 
+import org.ccci.gto.authorization.object.Attribute;
 import org.ccci.gto.authorization.object.Entity;
 import org.ccci.gto.authorization.object.Namespace;
 import org.ccci.gto.authorization.object.Target;
@@ -24,4 +25,6 @@ public interface Response<T extends Command> extends Serializable {
     public Collection<Namespace> getNamespaces();
 
     public Collection<Entity> getEntities();
+
+    Collection<Attribute> getAttributes();
 }

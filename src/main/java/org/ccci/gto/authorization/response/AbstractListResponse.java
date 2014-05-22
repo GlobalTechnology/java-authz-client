@@ -20,12 +20,13 @@ import javax.xml.xpath.XPathConstants;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public abstract class AbstractListResponse<T extends Command, O extends AuthzObject> extends AbstractResponse<T> {
     private static final long serialVersionUID = 3636182136215689048L;
 
     private final Class<O> objectClass;
-    private final Collection<O> objects;
+    private final List<O> objects;
 
     public AbstractListResponse(final T command, final Integer code, final Class<O> objectClass,
             final Collection<O> objects) {
@@ -34,7 +35,7 @@ public abstract class AbstractListResponse<T extends Command, O extends AuthzObj
         if (objects == null || objects.size() == 0) {
             this.objects = Collections.emptyList();
         } else {
-            this.objects = Collections.unmodifiableCollection(new ArrayList<>(objects));
+            this.objects = Collections.unmodifiableList(new ArrayList<>(objects));
         }
     }
 
@@ -49,11 +50,12 @@ public abstract class AbstractListResponse<T extends Command, O extends AuthzObj
                     XPathConstants.NODE);
 
             // extract any objects attached to the response
-            final NodeList objectsNL = (NodeList) xpathEngine.evaluate("authz:entity | authz:user | authz:group | "
-                    + "authz:target | authz:resource | authz:role | authz:namespace | authz:key", responseXml,
-                    XPathConstants.NODESET);
+            final NodeList objectsNL = (NodeList) xpathEngine.evaluate("authz:entity | authz:user | authz:group | " +
+                            "authz:target | authz:resource | authz:role | authz:namespace | authz:key | " +
+                            "authz:attribute", responseXml, XPathConstants.NODESET
+            );
 
-            final ArrayList<O> objects = new ArrayList<O>(objectsNL.getLength());
+            final ArrayList<O> objects = new ArrayList<>(objectsNL.getLength());
             try {
                 // iterate over all the found objects
                 for (int x = 0; x < objectsNL.getLength(); x++) {
@@ -96,7 +98,7 @@ public abstract class AbstractListResponse<T extends Command, O extends AuthzObj
                 throw new InvalidXmlException("Unsupported object encountered", e);
             }
 
-            this.objects = Collections.unmodifiableCollection(objects);
+            this.objects = Collections.unmodifiableList(objects);
         } catch (final InvalidXmlException e) {
             throw e;
         } catch (final Exception e) {
@@ -107,7 +109,7 @@ public abstract class AbstractListResponse<T extends Command, O extends AuthzObj
     /**
      * @return the objects
      */
-    public Collection<O> getObjects() {
+    public List<O> getObjects() {
         return this.objects;
     }
 
@@ -131,5 +133,16 @@ public abstract class AbstractListResponse<T extends Command, O extends AuthzObj
         }
 
         return super.getEntities();
+    }
+
+    @Override
+    public Collection<Attribute> getAttributes() {
+        if (Attribute.class.equals(this.objectClass)) {
+            @SuppressWarnings("unchecked")
+            final Collection<Attribute> attributes = (Collection<Attribute>) this.getObjects();
+            return attributes;
+        }
+
+        return super.getAttributes();
     }
 }

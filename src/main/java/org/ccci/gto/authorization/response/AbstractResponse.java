@@ -4,6 +4,7 @@ import org.ccci.gto.authorization.Command;
 import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.exception.UnsupportedMethodException;
+import org.ccci.gto.authorization.object.Attribute;
 import org.ccci.gto.authorization.object.Entity;
 import org.ccci.gto.authorization.object.Namespace;
 import org.ccci.gto.authorization.object.Target;
@@ -76,5 +77,10 @@ public abstract class AbstractResponse<T extends Command> implements Response<T>
     @Override
     public Collection<Entity> getEntities() {
         throw new UnsupportedMethodException("getEntities is not supported by " + this.getClass());
+    }
+
+    @Override
+    public Collection<Attribute> getAttributes() {
+        throw new UnsupportedMethodException("getAttributes is not supported by " + this.getClass());
     }
 }

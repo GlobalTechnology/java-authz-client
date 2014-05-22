@@ -65,4 +65,25 @@ public final class Attribute extends AbstractObject {
         result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }
+
+    public static class Name extends AbstractObject {
+        private static final long serialVersionUID = 3980374626818710777L;
+
+        public Name(final Namespace ns, final String name) {
+            super(ns, name);
+        }
+
+        public Name(final String ns, final String name) {
+            super(ns, name);
+        }
+
+        public Name(final Attribute attribute) {
+            super(attribute.getNamespace(), attribute.getName());
+        }
+
+        @Override
+        public Element toXml(final Document doc) {
+            throw new UnsupportedOperationException("toXml is unsupported for Attribute.Name objects");
+        }
+    }
 }

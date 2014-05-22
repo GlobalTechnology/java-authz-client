@@ -314,13 +314,14 @@ public final class Commands implements Serializable {
         return this.listEntityAttributes(Arrays.asList(entities));
     }
 
-    public Commands listEntityAttributes(final Collection<Entity> entities) throws InvalidCommandException,
+    public Commands listEntityAttributes(final Collection<? extends Entity> entities) throws InvalidCommandException,
             AlreadyProcessedException {
         return this.listEntityAttributes(entities, Collections.singleton(Namespace.ROOT));
     }
 
-    public Commands listEntityAttributes(final Collection<Entity> entities, final Collection<Namespace> namespaces)
-            throws AlreadyProcessedException, InvalidCommandException {
+    public Commands listEntityAttributes(final Collection<? extends Entity> entities,
+                                         final Collection<Namespace> namespaces) throws AlreadyProcessedException,
+            InvalidCommandException {
         try {
             return this.addCommand(new ListEntityAttributes(entities, namespaces));
         } catch (final AlreadyProcessedException propagated) {

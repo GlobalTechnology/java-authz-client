@@ -1,15 +1,15 @@
 package org.ccci.gto.authorization.processor;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.ccci.gto.authorization.Command;
+import org.ccci.gto.authorization.Commands;
+import org.ccci.gto.authorization.Processor;
+import org.ccci.gto.authorization.Response;
+import org.ccci.gto.authorization.exception.ProcessingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,17 +22,17 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
-
-import org.ccci.gto.authorization.Command;
-import org.ccci.gto.authorization.Commands;
-import org.ccci.gto.authorization.Processor;
-import org.ccci.gto.authorization.Response;
-import org.ccci.gto.authorization.exception.ProcessingException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class RpcProcessor implements Processor {
     private static final Logger LOG = LoggerFactory.getLogger(RpcProcessor.class);
@@ -83,7 +83,7 @@ public class RpcProcessor implements Processor {
     public List<Response<? extends Command>> process(final Commands commands) throws ProcessingException {
         // get the commands and generate a responses ArrayList
         final List<Command> cmds = commands.getCommands();
-        final ArrayList<Response<? extends Command>> responses = new ArrayList<Response<? extends Command>>(cmds.size());
+        final ArrayList<Response<? extends Command>> responses = new ArrayList<>(cmds.size());
 
         // wrap processing in a try block to catch any of the various exceptions
         // that could be thrown and wrap them in a ProcessingException
@@ -101,27 +101,38 @@ public class RpcProcessor implements Processor {
 
             // dump request xml
             if (LOG.isDebugEnabled()) {
-                final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                serializer.transform(new DOMSource(requestDom), new StreamResult(baos));
-                LOG.debug(baos.toString());
+                try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+                    serializer.transform(new DOMSource(requestDom), new StreamResult(baos));
+                    LOG.debug(baos.toString());
+                }
             }
 
             // issue authz request
-            final HttpURLConnection conn = (HttpURLConnection) authzUrl.openConnection();
-            conn.setDoOutput(true);
-            final OutputStream out = conn.getOutputStream();
-            serializer.transform(new DOMSource(requestDom), new StreamResult(out));
-            out.flush();
-            out.close();
+            HttpURLConnection conn = null;
+            final Document responseDom;
+            try {
+                conn = (HttpURLConnection) authzUrl.openConnection();
+                conn.setDoOutput(true);
+                try (OutputStream out = conn.getOutputStream()) {
+                    serializer.transform(new DOMSource(requestDom), new StreamResult(out));
+                }
 
-            // parse the authz response
-            final Document responseDom = documentBuilder.parse(conn.getInputStream());
+                // parse the authz response
+                try (InputStream in = conn.getInputStream()) {
+                    responseDom = documentBuilder.parse(in);
+                }
+            } finally {
+                if (conn != null) {
+                    conn.disconnect();
+                }
+            }
 
             // dump response xml if debug is enabled
             if (LOG.isDebugEnabled()) {
-                final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                serializer.transform(new DOMSource(responseDom), new StreamResult(baos));
-                LOG.debug(baos.toString());
+                try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+                    serializer.transform(new DOMSource(responseDom), new StreamResult(baos));
+                    LOG.debug(baos.toString());
+                }
             }
 
             // extract all commands from the response XML
@@ -149,17 +160,15 @@ public class RpcProcessor implements Processor {
     }
 
     /**
-     * @param documentBuilder
-     *            the XmlDocumentBuilder to use for processing authorization
-     *            commands
+     * @param documentBuilder the XmlDocumentBuilder to use for processing authorization
+     *                        commands
      */
     public void setXmlDocumentBuilder(final DocumentBuilder documentBuilder) {
         this.xmlDocumentBuilder = documentBuilder;
     }
 
     /**
-     * @param xpathEngine
-     *            the xpathEngine to set
+     * @param xpathEngine the xpathEngine to set
      */
     public void setXpathEngine(final XPath xpathEngine) {
         this.xpathEngine = xpathEngine;

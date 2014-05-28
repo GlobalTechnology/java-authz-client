@@ -18,35 +18,35 @@ public abstract class AbstractResponse<T extends Command> implements Response<T>
     private static final long serialVersionUID = -5437888889574490757L;
 
     private final T command;
-    private final Integer code;
+    private final Code code;
 
-    public AbstractResponse(final T command, final Element commandXml, final XPath xpathEngine)
-            throws InvalidXmlException {
-	this.command = command;
+    public AbstractResponse(final T command, final Element commandXml, final XPath xpathEngine) throws
+            InvalidXmlException {
+        this.command = command;
 
-	try {
-	    // extract the response node from the command
-	    final Element responseXml = (Element) xpathEngine.evaluate(
-		    "authz:response", commandXml, XPathConstants.NODE);
+        try {
+            // extract the response node from the command
+            final Element responseXml = (Element) xpathEngine.evaluate("authz:response", commandXml,
+                    XPathConstants.NODE);
 
-	    // extract the response code
-	    this.code = Integer.parseInt(responseXml.getAttributeNS(null, "code"));
-	} catch(final Exception e) {
-	    throw new InvalidXmlException(e);
-	}
+            // extract the response rawCode
+            this.code = Code.fromCode(Integer.parseInt(responseXml.getAttributeNS(null, "code")));
+        } catch (final Exception e) {
+            throw new InvalidXmlException(e);
+        }
     }
 
     public AbstractResponse(final T command, final Integer code) {
         this.command = command;
-        this.code = code;
+        this.code = code != null ? Code.fromCode(code) : Code.UNKNOWN;
     }
 
     /**
      * @return the code
      */
     @Override
-    public Integer getCode() {
-	return this.code;
+    public Code getCode() {
+        return this.code;
     }
 
     @Override

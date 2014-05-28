@@ -1,6 +1,5 @@
 package org.ccci.gto.authorization.command;
 
-import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.object.User;
 import org.ccci.gto.authorization.response.GenericResponse;
@@ -33,8 +32,9 @@ public final class AddUsers extends AbstractObjectsCommand<User> {
     }
 
     @Override
-    public Response<AddUsers> newResponse(final Element commandXml, final XPath xpathEngine) throws InvalidXmlException {
-        return new GenericResponse<AddUsers>(this, commandXml, xpathEngine);
+    public GenericResponse<AddUsers> newResponse(final Element commandXml, final XPath xpathEngine) throws
+            InvalidXmlException {
+        return new GenericResponse<>(this, commandXml, xpathEngine);
     }
 
     @Override

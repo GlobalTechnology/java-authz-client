@@ -36,7 +36,7 @@ public final class RemovePermissions extends AbstractDoubleObjectsCommand<Entity
     @Override
     public GenericResponse<RemovePermissions> newResponse(final Element commandXml, final XPath xpathEngine)
             throws InvalidXmlException {
-        return new GenericResponse<RemovePermissions>(this, commandXml, xpathEngine);
+        return new GenericResponse<>(this, commandXml, xpathEngine);
     }
 
     @Override

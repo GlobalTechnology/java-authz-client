@@ -38,7 +38,7 @@ public final class Login extends AbstractCommand {
     @Override
     public GenericResponse<Login> newResponse(final Element commandXml, final XPath xpathEngine)
             throws InvalidXmlException {
-        return new GenericResponse<Login>(this, commandXml, xpathEngine);
+        return new GenericResponse<>(this, commandXml, xpathEngine);
     }
 
     @Override

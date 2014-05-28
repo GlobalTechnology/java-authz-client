@@ -1,6 +1,5 @@
 package org.ccci.gto.authorization.command;
 
-import org.ccci.gto.authorization.Response;
 import org.ccci.gto.authorization.exception.InvalidXmlException;
 import org.ccci.gto.authorization.object.Entity;
 import org.ccci.gto.authorization.object.Group;
@@ -35,9 +34,9 @@ public final class RemoveFromGroups extends AbstractDoubleObjectsCommand<Entity,
     }
 
     @Override
-    public Response<RemoveFromGroups> newResponse(final Element commandXml, final XPath xpathEngine)
+    public GenericResponse<RemoveFromGroups> newResponse(final Element commandXml, final XPath xpathEngine)
             throws InvalidXmlException {
-        return new GenericResponse<RemoveFromGroups>(this, commandXml, xpathEngine);
+        return new GenericResponse<>(this, commandXml, xpathEngine);
     }
 
     @Override

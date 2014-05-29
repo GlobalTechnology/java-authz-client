@@ -21,6 +21,7 @@ import org.ccci.gto.authorization.command.RemovePermissions;
 import org.ccci.gto.authorization.command.RemoveResources;
 import org.ccci.gto.authorization.command.RemoveRoles;
 import org.ccci.gto.authorization.command.RestrictNamespaces;
+import org.ccci.gto.authorization.command.SetEntityAttributes;
 import org.ccci.gto.authorization.exception.AlreadyProcessedException;
 import org.ccci.gto.authorization.exception.InvalidCommandException;
 import org.ccci.gto.authorization.exception.NotProcessedException;
@@ -48,7 +49,7 @@ import java.util.List;
 public final class Commands implements Serializable {
     private static final long serialVersionUID = -589071576194917897L;
 
-    private final List<Command> commands = new ArrayList<Command>();
+    private final List<Command> commands = new ArrayList<>();
     private List<Response<? extends Command>> responses = null;
 
     public Commands addCommand(final Command cmd) throws AlreadyProcessedException {
@@ -92,8 +93,7 @@ public final class Commands implements Serializable {
     }
 
     /**
-     * @param responses
-     *            the responses to set
+     * @param responses the responses to set
      * @throws ProcessingException
      */
     public void setResponses(final List<Response<? extends Command>> responses) throws ProcessingException {
@@ -144,6 +144,7 @@ public final class Commands implements Serializable {
         final Element commands = doc.createElementNS(XMLNS_AUTHZ, "commands");
 
         if (this.isProcessed()) {
+            // TODO: generate response XML
         } else {
             // iterate over commands list appending xml for each command
             for (final Command cmd : this.commands) {
@@ -463,6 +464,23 @@ public final class Commands implements Serializable {
         try {
             // generate and add a new restrictNamespaces command
             return this.addCommand(new RestrictNamespaces(namespaces));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands setEntityAttributes(final Entity entity, final Collection<Attribute> attributes) throws
+            AlreadyProcessedException, InvalidCommandException {
+        return this.setEntityAttributes(Collections.singleton(entity), attributes);
+    }
+
+    public Commands setEntityAttributes(final Collection<? extends Entity> entities,
+                                        final Collection<Attribute> attributes) throws AlreadyProcessedException,
+            InvalidCommandException {
+        try {
+            return this.addCommand(new SetEntityAttributes(entities, attributes));
         } catch (final AlreadyProcessedException propagated) {
             throw propagated;
         } catch (final Exception e) {

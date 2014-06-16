@@ -12,6 +12,12 @@
   <version>2.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
+  <scm>
+    <connection>scm:git:git@github.com:GlobalTechnology/java-authz-client.git</connection>
+    <developerConnection>scm:git:git@github.com:GlobalTechnology/java-authz-client.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
   <properties>
     <slf4j.version>1.7.1</slf4j.version>
   </properties>

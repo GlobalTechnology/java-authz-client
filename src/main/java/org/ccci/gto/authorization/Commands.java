@@ -16,6 +16,7 @@ import org.ccci.gto.authorization.command.ListEntityAttributes;
 import org.ccci.gto.authorization.command.ListGroupMembers;
 import org.ccci.gto.authorization.command.ListPermittedEntities;
 import org.ccci.gto.authorization.command.Login;
+import org.ccci.gto.authorization.command.RemoveAllObjects;
 import org.ccci.gto.authorization.command.RemoveFromGroups;
 import org.ccci.gto.authorization.command.RemovePermissions;
 import org.ccci.gto.authorization.command.RemoveResources;
@@ -391,6 +392,22 @@ public final class Commands implements Serializable {
         try {
             // generate and add a new login command
             return this.addCommand(new Login(key));
+        } catch (final AlreadyProcessedException propagated) {
+            throw propagated;
+        } catch (final Exception e) {
+            throw new InvalidCommandException(e);
+        }
+    }
+
+    public Commands removeAllObjects(final Namespace... namespaces) throws InvalidCommandException,
+            AlreadyProcessedException {
+        return this.removeAllObjects(Arrays.asList(namespaces));
+    }
+
+    public Commands removeAllObjects(final Collection<Namespace> namespaces) throws AlreadyProcessedException,
+            InvalidCommandException {
+        try {
+            return this.addCommand(new RemoveAllObjects(namespaces));
         } catch (final AlreadyProcessedException propagated) {
             throw propagated;
         } catch (final Exception e) {

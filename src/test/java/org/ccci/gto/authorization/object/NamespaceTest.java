@@ -1,14 +1,19 @@
 package org.ccci.gto.authorization.object;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-public class NamespaceTest extends TestCase {
+import org.junit.Test;
+
+public class NamespaceTest {
+    @Test
     public void testEquals() {
         final Namespace ns1 = new Namespace("test:namespace");
         final Namespace ns2 = new Namespace("TEST:NameSpace");
         assertEquals(ns1, ns2);
     }
 
+    @Test
     public void testDescendant() {
         final Namespace base = Namespace.ROOT;
         final Namespace child1 = new Namespace("child1");
@@ -22,6 +27,7 @@ public class NamespaceTest extends TestCase {
         assertEquals(child2, base.descendant("child1").descendant("child2:child3"));
     }
 
+    @Test
     public void testParent() {
         final Namespace base = Namespace.ROOT;
         final Namespace child1 = new Namespace("child1");

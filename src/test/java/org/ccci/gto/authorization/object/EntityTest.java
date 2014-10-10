@@ -1,8 +1,12 @@
 package org.ccci.gto.authorization.object;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-public class EntityTest extends TestCase {
+import org.junit.Test;
+
+public class EntityTest {
+    @Test
     public void testConstructors() {
         // valid entities
         {

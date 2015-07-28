@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.ccci.gto</groupId>
     <artifactId>java-parent</artifactId>
-    <version>17</version>
+    <version>24</version>
   </parent>
 
   <artifactId>authz-core</artifactId>
